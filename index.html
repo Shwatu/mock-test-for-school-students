@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartTest - School Mock Test</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
+header{background:#2563eb;color:white;padding:22px;text-align:center}
+.hero{text-align:center;padding:35px 15px;background:#dbeafe}
+.hero h2{color:#1d4ed8;margin-bottom:10px}
+.container{max-width:750px;margin:25px auto;padding:15px}
+.card{background:white;padding:25px;border-radius:14px;margin-bottom:20px;box-shadow:0 4px 15px #0001}
+h2{margin-bottom:18px}
+label{display:block;margin:12px 0 6px;font-weight:bold}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
+button{padding:12px 18px;border:0;border-radius:7px;background:#2563eb;color:white;font-size:16px;cursor:pointer;margin-top:15px}
+button:hover{background:#1d4ed8}
+.primary{width:100%}
+.hidden{display:none}
+.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+#timer{color:#dc2626;font-weight:bold}
+.question{padding:18px 0;border-bottom:1px solid #ddd}
+.question h3{margin-bottom:10px;font-size:17px}
+.option{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #ddd;border-radius:7px;margin:8px 0;cursor:pointer;font-weight:normal}
+.option input{width:auto}
+#score{font-size:40px;color:#2563eb;font-weight:bold;margin:15px 0}
+.review{padding:12px 0;border-bottom:1px solid #ddd}
+footer{text-align:center;padding:20px;background:#0f172a;color:white}
+</style>
+</head>
+
+<body>
+<header>
+<h1>📘 SmartTest</h1>
+<p>School Student Mock Test Platform</p>
+</header>
+
+<section class="hero">
+<h2>Test Your Knowledge!</h2>
+<p>Practice questions, improve your skills, and check your results.</p>
+</section>
+
+<main class="container">
+
+<section class="card" id="setup">
+<h2>Start Your Mock Test</h2>
+<form id="setupForm">
+<label for="name">Student Name</label>
+<input id="name" required placeholder="Enter your name">
+
+<label for="className">Select Class</label>
+<select id="className" required>
+<option value="">Choose class</option>
+<option>6</option><option>7</option><option>8</option>
+<option>9</option><option>10</option><option>11</option><option>12</option>
+</select>
+
+<label for="subject">Select Subject</label>
+<select id="subject" required>
+<option value="">Choose subject</option>
+<option value="Maths">Mathematics</option>
+<option value="Science">Science</option>
+<option value="English">English</option>
+<option value="GK">General Knowledge</option>
+</select>
+
+<button class="primary" type="submit">Start Mock Test →</button>
+</form>
+</section>
+
+<section class="card hidden" id="testSection">
+<div class="top">
+<div>
+<h2 id="testTitle">Mock Test</h2>
+<p id="studentInfo"></p>
+</div>
+<p id="timer">Time: 05:00</p>
+</div>
+
+<p id="progress">Answered 0 questions</p>
+<form id="testForm">
+<div id="questions"></div>
+<button class="primary" type="submit">Submit Test</button>
+</form>
+</section>
+
+<section class="card hidden" id="resultSection">
+<h2>🎉 Your Result</h2>
+<p id="greeting"></p>
+<div id="score"></div>
+<p id="percentage"></p>
+<h2 style="margin-top:25px">Answer Review</h2>
+<div id="review"></div>
+<button class="primary" id="restart">Take Another Test ↻</button>
+</section>
+
+</main>
+
+<footer>
+<p>© 2026 SmartTest | Learn • Practice • Succeed</p>
+</footer>
+
+<script>
+const bank = {
+Maths: [
+{q:"What is 25 × 4?",o:["50","100","75","125"],a:1},
+{q:"What is the square of 9?",o:["18","72","81","99"],a:2},
+{q:"What is 144 ÷ 12?",o:["10","11","12","14"],a:2},
+{q:"How many sides does a hexagon have?",o:["5","6","7","8"],a:1},
+{q:"What is 15% of 200?",o:["15","20","25","30"],a:3}
+],
+Science: [
+{q:"Which planet is called the Red Planet?",o:["Earth","Mars","Venus","Jupiter"],a:1},
+{q:"Which gas do plants absorb during photosynthesis?",o:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],a:2},
+{q:"What is the boiling point of water at sea level?",o:["50°C","75°C","100°C","150°C"],a:2},
+{q:"Which organ pumps blood?",o:["Lungs","Brain","Kidneys","Heart"],a:3},
+{q:"Which force pulls objects toward Earth?",o:["Friction","Gravity","Magnetism","Electricity"],a:1}
+],
+English: [
+{q:"What is the plural of child?",o:["Childs","Childes","Children","Childrens"],a:2},
+{q:"Which word is a noun?",o:["Quickly","Beautiful","Happiness","Run"],a:2},
+{q:"Choose the opposite of ancient.",o:["Old","Modern","Historic","Past"],a:1},
+{q:"She ___ to school every day.",o:["go","going","goes","gone"],a:2},
+{q:"Choose the correct spelling.",o:["Beautifull","Beutiful","Beautiful","Beautifal"],a:2}
+],
+GK: [
+{q:"What is the capital of India?",o:["Mumbai","New Delhi","Kolkata","Chennai"],a:1},
+{q:"How many days are there in a week?",o:["5","6","7","8"],a:2},
+{q:"Which is the largest planet?",o:["Earth","Mars","Jupiter","Venus"],a:2},
+{q:"What is the national animal of India?",o:["Lion","Tiger","Elephant","Leopard"],a:1},
+{q:"How many colours are in a rainbow traditionally?",o:["5","6","7","8"],a:2}
+]
+};
+
+let questions = [];
+let timer;
+let timeLeft = 300;
+let finished = false;
+
+const $ = id => document.getElementById(id);
+
+$("setupForm").addEventListener("submit", function(e) {
+e.preventDefault();
+
+const subject = $("subject").value;
+const name = $("name").value.trim();
+const cls = $("className").value;
+
+if (!name || !cls || !subject) return;
+
+questions = bank[subject];
+timeLeft = 300;
+finished = false;
+
+$("setup").classList.add("hidden");
+$("resultSection").classList.add("hidden");
+$("testSection").classList.remove("hidden");
+$("testTitle").textContent = subject + " Mock Test";
+$("studentInfo").textContent = name + " | Class " + cls;
+
+renderQuestions();
+updateProgress();
+updateTimer();
+
+clearInterval(timer);
+timer = setInterval(() => {
+timeLeft--;
+updateTimer();
+if (timeLeft <= 0) submitTest();
+}, 1000);
+
+window.scrollTo(0,0);
+});
+
+function renderQuestions() {
+const container = $("questions");
+container.innerHTML = "";
+
+questions.forEach((q,i) => {
+const div = document.createElement("div");
+div.className = "question";
+
+const heading = document.createElement("h3");
+heading.textContent = (i+1) + ". " + q.q;
+div.appendChild(heading);
+
+q.o.forEach((option,j) => {
+const label = document.createElement("label");
+label.className = "option";
+
+const radio = document.createElement("input");
+radio.type = "radio";
+radio.name = "q" + i;
+radio.value = j;
+radio.addEventListener("change",updateProgress);
+
+label.appendChild(radio);
+label.appendChild(document.createTextNode(option));
+div.appendChild(label);
+});
+
+container.appendChild(div);
+});
+}
+
+function updateProgress() {
+let answered = 0;
+questions.forEach((q,i) => {
+if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
+});
+$("progress").textContent = "Answered " + answered + " of " + questions.length + " questions";
+}
+
+function updateTimer() {
+const m = Math.floor(timeLeft/60);
+const s = timeLeft%60;
+$("timer").textContent = "Time: " +
+String(m).padStart(2,"0") + ":" +
+String(s).padStart(2,"0");
+}
+
+$("testForm").addEventListener("submit",e => {
+e.preventDefault();
+submitTest();
+});
+
+function submitTest() {
+if (finished) return;
+finished = true;
+clearInterval(timer);
+
+let score = 0;
+const review = $("review");
+review.innerHTML = "";
+
+questions.forEach((q,i) => {
+const selected = document.querySelector('input[name="q'+i+'"]:checked');
+const answer = selected ? Number(selected.value) : -1;
+const correct = answer === q.a;
+if (correct) score++;
+
+const div = document.createElement("div");
+div.className = "review";
+const title = document.createElement("h3");
+title.textContent = (i+1) + ". " + q.q;
+div.appendChild(title);
+
+const yours = document.createElement("p");
+yours.textContent = "Your answer: " + (answer === -1 ? "Not answered" : q.o[answer]);
+yours.style.color = correct ? "green" : "red";
+div.appendChild(yours);
+
+const right = document.createElement("p");
+right.textContent = "Correct answer: " + q.o[q.a];
+right.style.color = "green";
+div.appendChild(right);
+review.appendChild(div);
+});
+
+const percent = Math.round(score/questions.length*100);
+$("greeting").textContent = "Well done, " + $("name").value.trim() + "!";
+$("score").textContent = score + " / " + questions.length;
+$("percentage").textContent = "Your score: " + percent + "%";
+$("testSection").classList.add("hidden");
+$("resultSection").classList.remove("hidden");
+window.scrollTo(0,0);
+}
+
+$("restart").addEventListener("click",() => {
+clearInterval(timer);
+$("resultSection").classList.add("hidden");
+$("testSection").classList.add("hidden");
+$("setup").classList.remove("hidden");
+window.scrollTo(0,0);
+});
+
+</script>
+</body>
+</html>
