@@ -1,371 +1,210 @@
+from pathlib import Path
 
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Swatu Mock Test for School Students</title>
+<meta name="description" content="Swati Mock Test — practice quizzes for Classes 6 to 12 in Physics, Chemistry, Mathematics, English, Social Science and General Knowledge.">
+<title>Swati Mock Test | Classes 6–12</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
-header{background:#1d4ed8;color:white;text-align:center;padding:25px 12px}
-header h1{margin:0 0 8px}
-main{max-width:800px;margin:25px auto;padding:0 14px}
-.card{background:white;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px #0000000b}
-h2{margin-top:0}
-label{display:block;font-weight:bold;margin:12px 0 6px}
-select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:white}
-button{padding:11px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:bold;margin:5px 4px 0 0}
-.primary{background:#2563eb;color:white}
-.secondary{background:#e2e8f0;color:#172033}
-.option{display:flex;gap:10px;padding:13px;border:1px solid #cbd5e1;border-radius:9px;margin:10px 0;cursor:pointer}
-.option:has(input:checked){background:#eff6ff;border-color:#2563eb}
-.hidden{display:none!important}
-.bar{height:7px;background:#e2e8f0;border-radius:10px;margin:15px 0;overflow:hidden}
-#progress{height:100%;width:0;background:#2563eb}
-.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#64748b}
-.score{font-size:38px;font-weight:bold;color:#2563eb}
-.stat{display:inline-block;background:#f1f5f9;border-radius:8px;padding:14px;margin:4px;text-align:center}
-.review{border-top:1px solid #e2e8f0;padding:12px 0}
-.correct{color:#15803d}.wrong{color:#b91c1c}
-footer{text-align:center;color:#64748b;padding:20px}
-@media(max-width:480px){.card{padding:16px}.score{font-size:32px}}
+:root{--bg:#f4f7fb;--panel:#fff;--ink:#172033;--muted:#65718a;--primary:#4f46e5;--primary2:#3730a3;--line:#e2e8f0;--good:#15803d;--bad:#b91c1c;--soft:#eef2ff;--shadow:0 14px 38px rgba(24,39,75,.09)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+header{background:linear-gradient(125deg,#312e81,#4f46e5 60%,#7c3aed);color:#fff;padding:27px 20px 30px}
+.wrap{max-width:1100px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-weight:850;font-size:1.28rem;letter-spacing:-.03em}.tag{font-size:.82rem;border:1px solid #ffffff55;border-radius:999px;padding:6px 11px;background:#ffffff12}
+header h1{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.12;letter-spacing:-.04em;margin:26px 0 9px}header p{margin:0;color:#e0e7ff;max-width:650px}
+main{padding:25px 18px 45px}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px}.panel h2{font-size:1.1rem;margin:0 0 16px;letter-spacing:-.02em}
+label{display:block;font-weight:700;font-size:.9rem;margin:15px 0 7px}select,input{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:12px 12px;background:#fff;color:var(--ink);font:inherit;outline:none}select:focus,input:focus{border-color:var(--primary);box-shadow:0 0 0 3px #4f46e522}
+.btn{border:0;border-radius:11px;padding:12px 16px;font:inherit;font-weight:750;cursor:pointer;transition:transform .15s,opacity .15s}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.primary{background:var(--primary);color:#fff}.primary:hover{background:var(--primary2)}.secondary{background:var(--soft);color:var(--primary2)}.wide{width:100%;margin-top:18px}
+.note{font-size:.82rem;color:var(--muted);margin-top:13px}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.stat{background:#f8fafc;border:1px solid var(--line);padding:12px;border-radius:12px}.stat strong{display:block;font-size:1.25rem}.stat span{font-size:.75rem;color:var(--muted)}
+.content{min-width:0}.welcome{padding:26px}.welcome h2{font-size:1.55rem;margin-bottom:7px}.welcome p{color:var(--muted);margin-top:0}.subject-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}.subject{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff}.subject .emoji{font-size:1.4rem}.subject strong{display:block;margin:6px 0 3px}.subject small{color:var(--muted)}
+.hidden{display:none!important}.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.crumb{color:var(--muted);font-size:.88rem}.timer{font-variant-numeric:tabular-nums;font-weight:800;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;padding:8px 12px;border-radius:10px}
+.progress{height:8px;background:#e9edf5;border-radius:99px;overflow:hidden;margin:12px 0 20px}.progress div{height:100%;background:var(--primary);width:0;transition:width .2s}
+.question-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem;margin-bottom:10px}.question{font-size:1.2rem;font-weight:760;line-height:1.4;margin:0 0 18px}.options{display:grid;gap:10px}.option{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line);border-radius:12px;padding:13px;cursor:pointer;background:#fff;transition:border .15s,background .15s}.option:hover{border-color:#a5b4fc;background:#fafaff}.option.selected{border-color:var(--primary);background:#eef2ff}.letter{flex:0 0 27px;height:27px;display:grid;place-items:center;border-radius:8px;background:#f1f5f9;font-size:.8rem;font-weight:800}.option.selected .letter{background:var(--primary);color:white}
+.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.quiz-actions .right{display:flex;gap:10px}.question-nav{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.qnum{width:35px;height:35px;border-radius:9px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:700}.qnum.answered{background:#e0e7ff;border-color:#a5b4fc;color:#3730a3}.qnum.current{outline:2px solid var(--primary);outline-offset:1px}
+.result-score{font-size:3rem;font-weight:900;letter-spacing:-.05em;color:var(--primary);line-height:1.15}.result-sub{color:var(--muted)}.result-bar{height:12px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:17px 0}.result-bar div{height:100%;background:linear-gradient(90deg,#4f46e5,#8b5cf6)}
+.review-item{padding:16px 0;border-bottom:1px solid var(--line)}.review-item:last-child{border:0}.review-item h3{font-size:1rem;margin:0 0 10px}.answer-line{font-size:.9rem;margin:5px 0}.correct{color:var(--good);font-weight:700}.incorrect{color:var(--bad);font-weight:700}.explanation{font-size:.88rem;color:var(--muted);margin-top:7px}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:.82rem}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.subject-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){header{padding:20px 17px 24px}.top{align-items:flex-start;flex-direction:column;gap:8px}.panel{padding:17px}.subject-grid{grid-template-columns:1fr 1fr}.subject{padding:12px}.quiz-actions{flex-wrap:wrap}.quiz-actions .right{width:100%}.quiz-actions .right .btn{flex:1}.question{font-size:1.08rem}}
 </style>
 </head>
 <body>
-<header>
-<h1>Swatu Mock Test</h1>
-<p>Smart Practice for School Students | Classes 6–12</p>
-</header>
-<main>
-<section class="card" id="setup">
-<h2>Start Your Mock Test</h2>
-<label for="classSelect">Select Class</label>
-<select id="classSelect">
-<option value="6">Class 6</option><option value="7">Class 7</option>
-<option value="8">Class 8</option><option value="9">Class 9</option>
-<option value="10">Class 10</option><option value="11">Class 11</option>
-<option value="12">Class 12</option>
-</select>
-<label for="subjectSelect">Select Subject</label>
-<select id="subjectSelect">
-<option>Science</option><option>Mathematics</option>
-<option>English</option><option>Social Science</option>
-</select>
-<p id="level">Difficulty: Easy</p>
-<button class="primary" id="start">Start Test</button>
-</section>
-
-<section class="card hidden" id="test">
-<div class="meta"><span id="testName"></span><span id="count"></span><span id="timer">00:00</span></div>
-<div class="bar"><div id="progress"></div></div>
-<h3 id="question"></h3>
-<div id="options"></div>
-<button class="secondary" id="prev">Previous</button>
-<button class="primary" id="next">Next Question</button>
-<button class="primary hidden" id="submit">Submit Test</button>
-<button class="secondary" id="exit">Exit</button>
-</section>
-
-<section class="card hidden" id="result">
-<h2>Test Result</h2>
-<p id="resultName"></p>
-<div class="score" id="score"></div>
-<p id="message"></p>
-<div class="stat">Correct<br><strong id="correct"></strong></div>
-<div class="stat">Incorrect<br><strong id="incorrect"></strong></div>
-<div class="stat">Percentage<br><strong id="percent"></strong></div>
-<h3>Answer Review</h3>
-<div id="review"></div>
-<button class="primary" id="retry">Try Again</button>
-<button class="secondary" id="change">Choose Another Test</button>
-</section>
+<header><div class="wrap">
+  <div class="top"><div class="brand">✦ SWATI MOCK TEST</div><div class="tag">Classes 6–12 · Learn. Practice. Improve.</div></div>
+  <h1>Your practice. Your progress.</h1>
+  <p>Choose your class and subject, take a timed multiple-choice test, and review your answers with explanations.</p>
+</div></header>
+<main class="wrap">
+<div class="layout">
+  <aside class="panel">
+    <h2>Build your mock test</h2>
+    <label for="classSelect">Select class</label>
+    <select id="classSelect"><option value="">Choose a class</option></select>
+    <label for="subjectSelect">Select subject</label>
+    <select id="subjectSelect"><option value="">Choose a subject</option></select>
+    <label for="durationSelect">Time limit</label>
+    <select id="durationSelect"><option value="5">5 minutes — quick practice</option><option value="10" selected>10 minutes — standard</option><option value="15">15 minutes — relaxed</option><option value="0">No timer</option></select>
+    <button class="btn primary wide" id="startBtn">Start mock test →</button>
+    <p class="note">Each test contains 5 class- and subject-specific questions. Your score is calculated instantly when you submit.</p>
+    <div class="statgrid"><div class="stat"><strong>7</strong><span>Classes</span></div><div class="stat"><strong>6</strong><span>Subjects</span></div><div class="stat"><strong>42</strong><span>Test sets</span></div></div>
+  </aside>
+  <section class="content">
+    <div class="panel welcome" id="welcome">
+      <h2>Welcome to your learning zone 👋</h2>
+      <p>Pick a class and subject to get started. Questions are organized by school level and cover core concepts.</p>
+      <div class="subject-grid">
+        <div class="subject"><span class="emoji">⚡</span><strong>Physics</strong><small>Motion, energy, light & more</small></div>
+        <div class="subject"><span class="emoji">🧪</span><strong>Chemistry</strong><small>Matter, reactions & elements</small></div>
+        <div class="subject"><span class="emoji">📐</span><strong>Mathematics</strong><small>Numbers, algebra & geometry</small></div>
+        <div class="subject"><span class="emoji">📚</span><strong>English</strong><small>Grammar, vocabulary & usage</small></div>
+        <div class="subject"><span class="emoji">🌍</span><strong>Social Science</strong><small>History, geography & civics</small></div>
+        <div class="subject"><span class="emoji">💡</span><strong>General Knowledge</strong><small>Science, India & world facts</small></div>
+      </div>
+    </div>
+    <div class="panel hidden" id="quizPanel">
+      <div class="quiz-head"><div><div class="crumb" id="quizCrumb"></div><h2 id="quizTitle" style="margin:4px 0 0">Mock test</h2></div><div class="timer" id="timer">10:00</div></div>
+      <div class="progress"><div id="progressFill"></div></div>
+      <div class="question-meta"><span id="questionCount">Question 1 of 5</span><span id="answeredCount">0 answered</span></div>
+      <h3 class="question" id="questionText"></h3>
+      <div class="options" id="options"></div>
+      <div class="quiz-actions"><button class="btn secondary" id="prevBtn">← Previous</button><div class="right"><button class="btn secondary" id="nextBtn">Next →</button><button class="btn primary" id="submitBtn">Submit test</button></div></div>
+      <div class="question-nav" id="questionNav" aria-label="Question navigation"></div>
+    </div>
+    <div class="panel hidden" id="resultPanel"></div>
+  </section>
+</div>
 </main>
-<footer>© <span id="year"></span> Swatu Mock Test</footer>
-
+<footer>© <span id="year"></span> Swati Mock Test · Made for school learners · Practice responsibly</footer>
 <script>
-// Answer is the zero-based index of the correct option.
-const allQuestions = {
-"6":{
-"Science":[
-{question:"Which plant part absorbs water?",options:["Flower","Root","Leaf","Fruit"],answer:1},
-{question:"Which food is rich in vitamin C?",options:["Lemon","Butter","Rice","Salt"],answer:0},
-{question:"Which material is magnetic?",options:["Wood","Plastic","Iron","Rubber"],answer:2},
-{question:"What is Earth's main energy source?",options:["Moon","Sun","Mars","Ocean"],answer:1},
-{question:"Which state has a fixed shape?",options:["Gas","Liquid","Solid","Vapour"],answer:2}],
+const subjects = ["Physics","Chemistry","Mathematics","English","Social Science","General Knowledge"];
+const icons = {"Physics":"⚡","Chemistry":"🧪","Mathematics":"📐","English":"📚","Social Science":"🌍","General Knowledge":"💡"};
+const Q=(q,opts,a,why)=>({q,opts,a,why});
+const bank = {
+6:{
+"Physics":[
+Q("Which instrument is commonly used to measure temperature?",["Barometer","Thermometer","Ammeter","Compass"],1,"A thermometer measures temperature."),
+Q("Which of these is a source of light?",["The Moon","A mirror","The Sun","A book"],2,"The Sun produces its own light; the Moon reflects sunlight."),
+Q("A shadow forms when light is blocked by an object that is…",["Transparent","Opaque","Luminous","Magnetic"],1,"Opaque objects block light and form shadows."),
+Q("Which simple machine is a seesaw an example of?",["Lever","Pulley","Screw","Wedge"],0,"A seesaw is a lever that turns around a fulcrum."),
+Q("Which material is usually a good conductor of electricity?",["Rubber","Dry wood","Copper","Plastic"],2,"Copper allows electric current to flow easily.")
+],
+"Chemistry":[
+Q("Which state of matter has a fixed shape and fixed volume?",["Solid","Liquid","Gas","Vapour only"],0,"Solids retain their shape and volume."),
+Q("Which method can separate stones from rice?",["Evaporation","Handpicking","Condensation","Filtration"],1,"Handpicking works when unwanted pieces are visible and large."),
+Q("Water changing into water vapour is called…",["Freezing","Melting","Evaporation","Condensation"],2,"Evaporation changes liquid water into vapour."),
+Q("Which of these is a natural fibre?",["Nylon","Polyester","Cotton","Acrylic"],2,"Cotton comes from the cotton plant."),
+Q("Which gas do humans need for respiration?",["Oxygen","Helium","Hydrogen","Neon"],0,"Oxygen is used by cells during aerobic respiration.")
+],
 "Mathematics":[
-{question:"What is 125 + 275?",options:["300","350","400","425"],answer:2},
-{question:"What is 3/4 of 20?",options:["5","10","15","18"],answer:2},
-{question:"How many sides does a hexagon have?",options:["5","6","7","8"],answer:1},
-{question:"Perimeter of a square with side 5 cm?",options:["10 cm","15 cm","20 cm","25 cm"],answer:2},
-{question:"What is the smallest prime number?",options:["0","1","2","3"],answer:2}],
+Q("What is 348 + 276?",["514","624","634","614"],1,"348 + 276 = 624."),
+Q("What is the place value of 7 in 5,742?",["7","70","700","7,000"],2,"The 7 is in the hundreds place, so its value is 700."),
+Q("Which fraction is equivalent to 1/2?",["2/3","3/6","2/5","4/6"],1,"3/6 simplifies to 1/2."),
+Q("A rectangle is 8 cm long and 3 cm wide. What is its perimeter?",["11 cm","22 cm","24 cm","16 cm"],1,"Perimeter = 2 × (8 + 3) = 22 cm."),
+Q("What is 9 × 7?",["56","63","72","49"],1,"9 multiplied by 7 equals 63.")
+],
 "English":[
-{question:"Choose the plural of child.",options:["Childs","Children","Childes","Childrens"],answer:1},
-{question:"Opposite of ancient?",options:["Old","Historic","Modern","Past"],answer:2},
-{question:"Which word is a verb?",options:["Beautiful","Quickly","Jump","Blue"],answer:2},
-{question:"She ___ to school every day.",options:["go","goes","going","gone"],answer:1},
-{question:"___ apple a day.",options:["A","An","Thee","No article"],answer:1}],
+Q("Choose the noun in this sentence: “The puppy chased the ball.”",["chased","the","puppy","quickly"],2,"“Puppy” names an animal, so it is a noun."),
+Q("Choose the correct plural of “child.”",["childs","childes","children","childrens"],2,"The plural form of child is children."),
+Q("Choose the opposite of “ancient.”",["Old","Modern","Historic","Early"],1,"Modern means belonging to the present or recent times."),
+Q("Fill in the blank: She ___ to school every day.",["go","goes","going","gone"],1,"With singular “she” in the simple present, use “goes.”"),
+Q("Which punctuation mark ends a direct question?",["Full stop","Comma","Question mark","Apostrophe"],2,"A direct question ends with a question mark.")
+],
 "Social Science":[
-{question:"Which planet do we live on?",options:["Mars","Earth","Venus","Jupiter"],answer:1},
-{question:"What does a map show?",options:["Recipes","Places","Songs","Only time"],answer:1},
-{question:"Who heads a Gram Panchayat?",options:["Sarpanch","Governor","President","Judge"],answer:0},
-{question:"The Sun generally rises in the:",options:["North","South","East","West"],answer:2},
-{question:"Which is a natural resource?",options:["Plastic toy","Water","Notebook","Brick"],answer:1}]},
-"7":{
-"Science":[
-{question:"Water vapour changing to liquid is called:",options:["Evaporation","Condensation","Melting","Freezing"],answer:1},
-{question:"Which nutrient helps growth and tissue repair?",options:["Protein","Fibre","Salt","Sugar only"],answer:0},
-{question:"What is the basic unit of life?",options:["Organ","Tissue","Cell","Bone"],answer:2},
-{question:"Which is a good electrical conductor?",options:["Rubber","Copper","Dry wood","Plastic"],answer:1},
-{question:"Plants make food by:",options:["Respiration","Digestion","Photosynthesis","Germination"],answer:2}],
+Q("Which is the largest continent by area?",["Africa","Asia","Europe","Australia"],1,"Asia is the largest continent."),
+Q("A map's key or legend explains…",["Map symbols","The weather","Population only","The map's age"],0,"A map key explains the symbols used on the map."),
+Q("Who was the first Mughal emperor in India?",["Akbar","Shah Jahan","Babur","Aurangzeb"],2,"Babur founded the Mughal Empire in India in 1526."),
+Q("Which local body usually governs a village?",["Municipal corporation","Gram Panchayat","Parliament","High Court"],1,"A Gram Panchayat is a village-level local government body."),
+Q("Which direction is opposite to east?",["North","South","West","North-east"],2,"West is opposite east.")
+],
+"General Knowledge":[
+Q("What is the capital of India?",["Mumbai","New Delhi","Kolkata","Jaipur"],1,"New Delhi is India's capital."),
+Q("How many days are there in a leap year?",["364","365","366","367"],2,"A leap year has 366 days."),
+Q("Which planet is known as the Red Planet?",["Venus","Mars","Jupiter","Mercury"],1,"Iron-rich dust gives Mars its reddish appearance."),
+Q("What is the national animal of India?",["Lion","Elephant","Bengal tiger","Peacock"],2,"The Bengal tiger is India's national animal."),
+Q("Which is the largest ocean on Earth?",["Atlantic","Indian","Arctic","Pacific"],3,"The Pacific Ocean is the largest.")
+]},
+7:{
+"Physics":[
+Q("Speed is calculated by dividing…",["Time by distance","Distance by time","Mass by volume","Force by area"],1,"Speed = distance ÷ time."),
+Q("Which type of mirror is commonly used as a rear-view mirror in vehicles?",["Plane","Convex","Concave","No mirror"],1,"A convex mirror gives a wider field of view."),
+Q("Heat transfer through direct contact is called…",["Conduction","Convection","Radiation","Reflection"],0,"Conduction transfers heat through particle interactions in contact."),
+Q("Which unit is used to measure electric current?",["Volt","Watt","Ampere","Ohm"],2,"Electric current is measured in amperes."),
+Q("A push or pull on an object is called…",["Energy","Force","Power","Pressure"],1,"A force is a push or pull that can change motion or shape.")
+],
+"Chemistry":[
+Q("Which process changes water vapour into liquid water?",["Evaporation","Condensation","Sublimation","Melting"],1,"Condensation is the change from gas to liquid."),
+Q("Which of these is a chemical change?",["Cutting paper","Melting ice","Rusting iron","Breaking glass"],2,"Rusting forms new substances, so it is a chemical change."),
+Q("Which gas supports burning?",["Oxygen","Carbon dioxide","Nitrogen","Hydrogen chloride"],0,"Oxygen supports combustion."),
+Q("Which method separates an insoluble solid from a liquid?",["Filtration","Distillation only","Magnetisation","Crystallisation only"],0,"A filter traps insoluble particles while liquid passes through."),
+Q("The smallest particle of an element that retains its chemical identity is an…",["Atom","Cell","Tissue","Mixture"],0,"An atom is the basic unit of an element.")
+],
 "Mathematics":[
-{question:"Calculate (-8) + 13.",options:["-21","-5","5","21"],answer:2},
-{question:"Solve 4x = 28.",options:["6","7","8","9"],answer:1},
-{question:"What is 15% of 200?",options:["15","20","30","35"],answer:2},
-{question:"An angle of 90° is:",options:["Acute","Right","Obtuse","Straight"],answer:1},
-{question:"Mean of 4, 6 and 8?",options:["5","6","7","8"],answer:1}],
+Q("What is −8 + 13?",["−21","−5","5","21"],2,"−8 + 13 = 5."),
+Q("If x + 9 = 17, what is x?",["6","8","9","26"],1,"Subtract 9 from both sides: x = 8."),
+Q("What is 25% of 80?",["10","15","20","25"],2,"25% is one quarter; 80 ÷ 4 = 20."),
+Q("Two angles of a triangle are 50° and 60°. The third angle is…",["60°","70°","80°","90°"],1,"Triangle angles total 180°; 180 − 110 = 70°."),
+Q("Simplify the ratio 12:18.",["2:3","3:2","4:9","6:9"],0,"Divide both parts by 6 to get 2:3.")
+],
 "English":[
-{question:"Past tense of write?",options:["Writed","Written","Wrote","Writing"],answer:2},
-{question:"Synonym of brave?",options:["Cowardly","Courageous","Weak","Quiet"],answer:1},
-{question:"Identify the adjective: The tall tree swayed.",options:["The","Tall","Tree","Swayed"],answer:1},
-{question:"Choose the correct sentence.",options:["They is ready.","They are ready.","They am ready.","They be ready."],answer:1},
-{question:"Plural of mouse?",options:["Mouses","Mices","Mice","Mouse"],answer:2}],
+Q("Choose the adverb: “Mira sang beautifully.”",["Mira","sang","beautifully","song"],2,"“Beautifully” describes how Mira sang."),
+Q("Choose the correct article: He ate ___ apple.",["a","an","thee","no article ever"],1,"Use “an” before a vowel sound, as in apple."),
+Q("Which sentence is in the past tense?",["I walk home.","I am walking home.","I walked home.","I will walk home."],2,"“Walked” is the simple past form."),
+Q("Choose a synonym for “brave.”",["Timid","Courageous","Careless","Sleepy"],1,"Courageous means brave."),
+Q("Choose the correctly spelled word.",["Beautifull","Beutiful","Beautiful","Beautifal"],2,"The correct spelling is beautiful.")
+],
 "Social Science":[
-{question:"0° latitude is called the:",options:["Prime Meridian","Equator","Tropic of Cancer","Arctic Circle"],answer:1},
-{question:"Largest continent?",options:["Africa","Europe","Asia","Australia"],answer:2},
-{question:"Democracy means:",options:["King's rule","Rule by the people","Army rule","Company rule"],answer:1},
-{question:"Who built the Taj Mahal?",options:["Akbar","Babur","Shah Jahan","Aurangzeb"],answer:2},
-{question:"Farming belongs to which economic sector?",options:["Primary","Secondary","Tertiary","Digital"],answer:0}]},
-"8":{
-"Science":[
-{question:"Which force opposes motion between surfaces?",options:["Gravity","Friction","Magnetism","Buoyancy"],answer:1},
-{question:"Chemical symbol for oxygen?",options:["Ox","O","Og","Oy"],answer:1},
-{question:"Which bacteria help turn milk into curd?",options:["Lactobacillus","Plasmodium","Amoeba","Virus"],answer:0},
-{question:"Which gas is used in many fire extinguishers?",options:["Oxygen","Hydrogen","Carbon dioxide","Helium"],answer:2},
-{question:"Which cell structure controls most activities?",options:["Cell wall","Nucleus","Vacuole","Membrane only"],answer:1}],
+Q("The imaginary line at 0° latitude is the…",["Prime Meridian","Equator","Tropic of Cancer","Arctic Circle"],1,"The Equator divides Earth into Northern and Southern Hemispheres."),
+Q("Who was the founder of the Delhi Sultanate's Mamluk dynasty?",["Qutb-ud-din Aibak","Akbar","Shivaji","Ashoka"],0,"Qutb-ud-din Aibak established the Mamluk dynasty in 1206."),
+Q("Which is a renewable resource?",["Coal","Petroleum","Wind","Natural gas"],2,"Wind is naturally replenished."),
+Q("The Constitution is best described as…",["A country's basic set of laws","A weather report","A trade receipt","A map"],0,"A constitution sets out the framework and principles of government."),
+Q("Which layer of Earth is the outermost solid layer?",["Inner core","Outer core","Mantle","Crust"],3,"Earth's crust is its outermost solid layer.")
+],
+"General Knowledge":[
+Q("Which is the national bird of India?",["Sparrow","Indian peafowl","Parrot","Eagle"],1,"The Indian peafowl, commonly called the peacock, is the national bird."),
+Q("How many players from one team are on a football field during normal play?",["9","10","11","12"],2,"A football (soccer) team has 11 players on the field."),
+Q("Which organ pumps blood around the human body?",["Lungs","Heart","Kidney","Stomach"],1,"The heart pumps blood through the circulatory system."),
+Q("Which is the currency of Japan?",["Yuan","Won","Yen","Baht"],2,"Japan's currency is the yen."),
+Q("Which scientist is associated with the laws of motion?",["Isaac Newton","Charles Darwin","Louis Pasteur","Gregor Mendel"],0,"Isaac Newton formulated the three laws of motion.")
+]},
+8:{
+"Physics":[
+Q("The SI unit of force is the…",["Joule","Newton","Pascal","Watt"],1,"Force is measured in newtons (N)."),
+Q("Sound is produced by…",["Vibrations","Shadows","Magnets only","Still objects"],0,"Sound is produced by vibrating objects."),
+Q("Which lens is thicker in the middle and converges parallel rays?",["Concave lens","Convex lens","Plane glass","None of these"],1,"A convex lens converges parallel light rays."),
+Q("Pressure is force divided by…",["Area","Time","Speed","Temperature"],0,"Pressure = force ÷ area."),
+Q("Which type of charge does an electron have?",["Positive","Negative","Neutral","Alternating"],1,"Electrons carry a negative electric charge.")
+],
+"Chemistry":[
+Q("A substance made of two or more elements chemically combined is a…",["Mixture","Compound","Solution only","Suspension"],1,"Compounds contain elements chemically bonded in fixed proportions."),
+Q("Which gas is released when many metals react with dilute acids?",["Oxygen","Hydrogen","Nitrogen","Chlorine"],1,"Many metal-acid reactions produce hydrogen gas."),
+Q("Litmus turns red in an…",["Acid","Base","Neutral salt only","Oil"],0,"Acids turn blue litmus red."),
+Q("Which of these is a non-metal?",["Iron","Copper","Sulphur","Aluminium"],2,"Sulphur is a non-metal."),
+Q("The process of coating iron with zinc to prevent rusting is called…",["Galvanisation","Crystallisation","Distillation","Neutralisation"],0,"Galvanisation protects iron by coating it with zinc.")
+],
 "Mathematics":[
-{question:"Solve 3x + 5 = 20.",options:["3","5","7","15"],answer:1},
-{question:"Square of 17?",options:["279","289","299","309"],answer:1},
-{question:"Sum of interior angles of a quadrilateral?",options:["180°","270°","360°","540°"],answer:2},
-{question:"Express 0.25 as a fraction.",options:["1/2","1/3","1/4","2/5"],answer:2},
-{question:"Cube of 3?",options:["9","18","27","36"],answer:2}],
+Q("What is the square root of 196?",["12","13","14","16"],2,"14 × 14 = 196."),
+Q("Expand 3(x + 4).",["3x + 4","3x + 12","x + 12","7x"],1,"Multiply 3 by both terms: 3x + 12."),
+Q("The sum of the interior angles of a quadrilateral is…",["180°","270°","360°","540°"],2,"A quadrilateral's interior angles add to 360°."),
+Q("What is 2⁵?",["10","16","25","32"],3,"2⁵ = 2 × 2 × 2 × 2 × 2 = 32."),
+Q("If 5x = 45, then x equals…",["5","8","9","40"],2,"Divide both sides by 5: x = 9.")
+],
 "English":[
-{question:"Passive voice of 'The boy kicked the ball.'",options:["The ball kicked the boy.","The ball was kicked by the boy.","The boy was kicked by the ball.","The ball is kick by the boy."],answer:1},
-{question:"Which word is an adverb?",options:["Careful","Carefully","Care","Caring"],answer:1},
-{question:"Choose the correct spelling.",options:["Accomodation","Accommodation","Acommodation","Accommadation"],answer:1},
-{question:"Antonym of expand?",options:["Enlarge","Extend","Contract","Increase"],answer:2},
-{question:"If I ___ time, I will help you.",options:["have","had","has","having"],answer:0}],
+Q("Identify the passive sentence.",["Riya wrote the letter.","The letter was written by Riya.","Riya is writing a letter.","Riya writes letters."],1,"In passive voice, the subject receives the action."),
+Q("Choose the correct conjunction: I was tired, ___ I finished my work.",["because","but","or","unless"],1,"“But” joins contrasting ideas."),
+Q("What is the comparative form of “good”?",["Gooder","More good","Better","Best"],2,"The irregular comparative of good is better."),
+Q("Choose the correctly punctuated sentence.",["Where are you going.","Where are you going?","Where are you going!","Where, are you going?"],1,"A direct question ends with a question mark."),
+Q("“The wind whispered through the trees” is an example of…",["Simile","Personification","Hyperbole","Alliteration only"],1,"Personification gives a human action to a non-human thing.")
+],
 "Social Science":[
-{question:"Which is a renewable energy resource?",options:["Coal","Petroleum","Solar energy","Natural gas"],answer:2},
-{question:"Secularism in India broadly involves:",options:["One official religion","Equal respect for religions","No elections","Rule by priests"],answer:1},
-{question:"Which movement began in 1942?",options:["Non-Cooperation","Quit India","Swadeshi","Khilafat"],answer:1},
-{question:"Which soil is suitable for cotton?",options:["Black soil","Snow","Desert sand only","Mountain ice"],answer:0},
-{question:"Which body makes Union laws in India?",options:["Parliament","Municipality only","Gram Sabha only","Election Commission"],answer:0}]},
-"9":{
-"Science":[
-{question:"A 10 N force produces acceleration 2 m/s². Find mass.",options:["2 kg","5 kg","10 kg","20 kg"],answer:1},
-{question:"Which subatomic particle has a negative charge?",options:["Proton","Neutron","Electron","Nucleus"],answer:2},
-{question:"Main site of aerobic respiration in a cell?",options:["Ribosome","Mitochondrion","Golgi apparatus","Lysosome"],answer:1},
-{question:"The pH of neutral water at 25°C is approximately:",options:["0","5","7","14"],answer:2},
-{question:"Action and reaction are equal and opposite under:",options:["Newton's first law","Second law","Third law","Gravitation law"],answer:2}],
-"Mathematics":[
-{question:"Roots of x² - 5x + 6 = 0?",options:["1 and 6","2 and 3","-2 and -3","0 and 5"],answer:1},
-{question:"Point (0, -4) lies on which axis?",options:["x-axis","y-axis","Both axes","Neither"],answer:1},
-{question:"Simplify (a²)(a³).",options:["a⁵","a⁶","a⁹","2a⁵"],answer:0},
-{question:"Angles of a triangle are 45° and 65°. Third angle?",options:["60°","70°","80°","90°"],answer:1},
-{question:"Probability of an even number on a fair die?",options:["1/6","1/3","1/2","2/3"],answer:2}],
-"English":[
-{question:"Reported speech: He said, 'I am tired.'",options:["He said I am tired.","He said that he was tired.","He says he tired.","He said he is tire."],answer:1},
-{question:"A comparison using 'like' or 'as' is a:",options:["Metaphor","Simile","Irony","Personification"],answer:1},
-{question:"Choose the correct sentence.",options:["Neither answer are correct.","Neither answer is correct.","Neither answers is correct.","Neither answer were correct."],answer:1},
-{question:"Closest meaning of reluctant?",options:["Unwilling","Excited","Certain","Careless"],answer:0},
-{question:"In 'I stayed home because it rained', the subordinate clause is:",options:["I stayed home","because it rained","I stayed","home because"],answer:1}],
-"Social Science":[
-{question:"A key event at the start of the French Revolution in 1789 was:",options:["Storming of the Bastille","Battle of Waterloo","Congress of Vienna","German unification"],answer:0},
-{question:"Which soil is widespread in northern Indian plains?",options:["Alluvial","Only mountain soil","Only desert soil","Only black soil"],answer:0},
-{question:"The main purpose of a constitution is to:",options:["Replace all courts","Set principles of governance","Predict weather","Manage shops"],answer:1},
-{question:"Federalism involves:",options:["All power in one local council","Power shared across levels of government","Courts make every law","No elections"],answer:1},
-{question:"Average income per person is called:",options:["Population density","Per capita income","Literacy rate","Birth rate"],answer:1}]},
-"10":{
-"Science":[
-{question:"A lens has focal length +20 cm. Its power is:",options:["+2 D","+5 D","-2 D","-5 D"],answer:1},
-{question:"Which equation expresses Ohm's law?",options:["V = IR","P = VI²","F = mv","E = mc"],answer:0},
-{question:"Which organisms are usually producers in a food chain?",options:["Green plants","Carnivores","Fungi only","Top predators"],answer:0},
-{question:"Functional group in ethanoic acid?",options:["-OH","-CHO","-COOH","-NH₂"],answer:2},
-{question:"Human fertilisation usually occurs in the:",options:["Uterus","Oviduct","Ovary surface only","Cervix"],answer:1}],
-"Mathematics":[
-{question:"If roots of x² - 7x + 10 = 0 are α and β, α + β equals:",options:["-7","7","10","-10"],answer:1},
-{question:"Distance between (1,2) and (4,6)?",options:["3","4","5","7"],answer:2},
-{question:"If tan θ = 3/4 for acute θ, sin θ is:",options:["3/5","4/5","3/4","4/3"],answer:0},
-{question:"10th term of an AP with a=2 and d=3?",options:["27","29","30","32"],answer:1},
-{question:"Circumference of radius 7 cm (π=22/7)?",options:["22 cm","44 cm","49 cm","154 cm"],answer:1}],
-"English":[
-{question:"Choose the correct transformation: 'No other metal is as useful as iron.'",options:["Iron is more useful than any other metal.","Iron is not useful.","All metals are equally useful.","Iron is least useful."],answer:0},
-{question:"The evidence was too ___ to ignore.",options:["Compelling","Compelled","Compulsion","Compel"],answer:0},
-{question:"'The wind whispered through the trees' uses:",options:["Hyperbole","Personification","Oxymoron","Pun"],answer:1},
-{question:"Choose the correct conditional sentence.",options:["If I had known, I would have called.","If I knew, I will have called yesterday.","If I have known, I would call yesterday.","If I would know, I called."],answer:0},
-{question:"Concise means:",options:["Brief and clear","Long and confusing","Unrelated","Uncertain"],answer:0}],
-"Social Science":[
-{question:"Division of power among legislature, executive and judiciary is:",options:["Horizontal distribution","Vertical distribution","Military rule","Single-party rule"],answer:0},
-{question:"Which institution issues most currency notes in India?",options:["SBI","Reserve Bank of India","Finance Commission","NITI Aayog"],answer:1},
-{question:"Which is a major non-renewable energy source?",options:["Solar","Wind","Coal","Tidal"],answer:2},
-{question:"Which crop is commonly associated with black soil?",options:["Cotton","Tea only","Jute only","Coconut only"],answer:0},
-{question:"Globalisation increases connections between:",options:["Only villages","Countries and economies","Only families","Only forests"],answer:1}]},
-"11":{
-"Science":[
-{question:"For an ideal gas, the equation of state is:",options:["PV=nRT","P=mv","V=IR²","F=ma²"],answer:0},
-{question:"The SI unit of electric charge is:",options:["Ampere","Volt","Coulomb","Ohm"],answer:2},
-{question:"Which quantum number determines an orbital's shape?",options:["Principal n","Azimuthal l","Magnetic m","Spin s"],answer:1},
-{question:"For a projectile launched and landing at the same height, maximum range occurs at:",options:["30°","45°","60°","90°"],answer:1},
-{question:"Which bond involves sharing electron pairs?",options:["Ionic","Covalent","Metallic only","Hydrogen only"],answer:1}],
-"Mathematics":[
-{question:"Derivative of sin x with respect to x?",options:["-sin x","cos x","tan x","-cos x"],answer:1},
-{question:"How many distinct permutations can be formed from the letters of CAT?",options:["3","6","9","12"],answer:1},
-{question:"If P(A)=0.4, then P(not A) equals:",options:["0.4","0.5","0.6","1.4"],answer:2},
-{question:"Distance between points (2,3) and (6,6)?",options:["4","5","6","7"],answer:1},
-{question:"Solve 2ˣ = 32.",options:["3","4","5","6"],answer:2}],
-"English":[
-{question:"Which sentence correctly uses the subjunctive?",options:["I suggest that he be present.","I suggest he is present yesterday.","I suggest he was be present.","I suggest him be present."],answer:0},
-{question:"A statement that contradicts itself is a:",options:["Simile","Paradox","Euphemism","Alliteration"],answer:1},
-{question:"Choose the correct collocation.",options:["Do a decision","Make a decision","Create a homework","Make an effortly"],answer:1},
-{question:"'Ubiquitous' most nearly means:",options:["Rare","Present everywhere","Temporary","Unclear"],answer:1},
-{question:"Which is an example of an independent clause?",options:["Although it rained","When the bell rang","The team won","Because we left"],answer:2}],
-"Social Science":[
-{question:"Which institution is responsible for monetary policy in India?",options:["RBI","Election Commission","Supreme Court","CAG"],answer:0},
-{question:"Opportunity cost refers to:",options:["All money spent","Value of the next best alternative forgone","Total revenue","Fixed cost only"],answer:1},
-{question:"Which is a core feature of a federal constitution?",options:["Constitutional division of powers","No courts","No elections","One local authority controls all"],answer:0},
-{question:"GDP measures the value of final goods and services produced:",options:["Only abroad by citizens","Within a country during a period","Only by government","Only by farms"],answer:1},
-{question:"Which factor most directly increases human capital?",options:["Education and training","Soil erosion","Inflation alone","Import duties alone"],answer:0}]},
-"12":{
-"Science":[
-{question:"For a first-order reaction, the half-life is:",options:["Proportional to initial concentration","Independent of initial concentration","Always zero","Equal to activation energy"],answer:1},
-{question:"The electric field inside an ideal conductor in electrostatic equilibrium is:",options:["Infinite","Zero","Always 1 N/C","Dependent only on mass"],answer:1},
-{question:"In DNA, adenine pairs with:",options:["Guanine","Cytosine","Thymine","Uracil"],answer:2},
-{question:"The SI unit of magnetic flux is:",options:["Tesla","Weber","Henry","Farad"],answer:1},
-{question:"Which process converts an aldehyde to a primary alcohol?",options:["Oxidation","Reduction","Hydrolysis only","Polymerisation"],answer:1}],
-"Mathematics":[
-{question:"Evaluate ∫₀¹ 2x dx.",options:["0","1","2","4"],answer:1},
-{question:"If A is a 2×3 matrix and B is a 3×4 matrix, the order of AB is:",options:["2×4","3×3","4×2","3×4"],answer:0},
-{question:"Derivative of ln x for x>0?",options:["x","1/x","ln x","eˣ"],answer:1},
-{question:"If two events are independent, then:",options:["P(A∩B)=P(A)+P(B)","P(A∩B)=P(A)P(B)","P(A)=P(B) always","P(A∪B)=0"],answer:1},
-{question:"Solve dy/dx = 2x with y(0)=3.",options:["y=x²","y=x²+3","y=2x+3","y=x+3"],answer:1}],
-"English":[
-{question:"In literary criticism, 'juxtaposition' means:",options:["Placing things side by side for contrast","Repeating a sound","Exaggerating a claim","Giving human traits to objects"],answer:0},
-{question:"Choose the sentence with correct parallel structure.",options:["She likes reading, to swim, and cycling.","She likes reading, swimming, and cycling.","She likes to read, swimming, and cycle.","She likes read, swim, and cycling."],answer:1},
-{question:"'Ephemeral' most nearly means:",options:["Lasting forever","Short-lived","Highly visible","Extremely loud"],answer:1},
-{question:"A narrator who knows the thoughts of all characters is:",options:["First-person limited","Omniscient","Unreliable by definition","An observer only"],answer:1},
-{question:"Which phrase is an example of verbal irony?",options:["A cold piece of ice","Calling a terrible day 'wonderful'","The sun rose","A very tall building"],answer:1}],
-"Social Science":[
-{question:"Comparative advantage is based on differences in:",options:["Opportunity costs","Population only","Currency names","Weather alone"],answer:0},
-{question:"Which principle means treating similar cases similarly under law?",options:["Rule of law and equality","Absolute monarchy","Censorship","Arbitrary rule"],answer:0},
-{question:"A sustained rise in the general price level is called:",options:["Deflation","Inflation","Recession only","Appreciation"],answer:1},
-{question:"The Human Development Index combines indicators of health, education and:",options:["Income","Military size","Exports only","Rainfall"],answer:0},
-{question:"Which body adjudicates disputes under India's constitutional system at the highest judicial level?",options:["Supreme Court","Lok Sabha Secretariat","Election Commission","Planning department"],answer:0}]}
-};
-
-// Keep five questions for every class and subject.
-let questions=[], answers=[], current=0, startedAt=0, timerHandle=null, elapsed=0;
-const $=id=>document.getElementById(id);
-$("year").textContent=new Date().getFullYear();
-
-function updateLevel(){
-  const c=Number($("classSelect").value);
-  $("level").textContent="Difficulty: "+(c<=8?"Easy":"Hard");
-}
-$("classSelect").addEventListener("change",updateLevel);
-updateLevel();
-
-function stopTimer(){
-  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
-}
-function formatTime(seconds){
-  const m=String(Math.floor(seconds/60)).padStart(2,"0");
-  const s=String(seconds%60).padStart(2,"0");
-  return m+":"+s;
-}
-function startTimer(){
-  startedAt=Date.now()-elapsed*1000;
-  stopTimer();
-  timerHandle=setInterval(()=>{
-    elapsed=Math.floor((Date.now()-startedAt)/1000);
-    $("timer").textContent=formatTime(elapsed);
-  },1000);
-}
-function showOnly(section){
-  ["setup","test","result"].forEach(id=>$(id).classList.toggle("hidden",id!==section));
-}
-function startTest(){
-  const cls=$("classSelect").value, subject=$("subjectSelect").value;
-  questions=allQuestions[cls][subject];
-  answers=Array(questions.length).fill(null);
-  current=0;elapsed=0;
-  $("testName").textContent=`Class ${cls} · ${subject} · ${Number(cls)<=8?"Easy":"Hard"}`;
-  $("timer").textContent="00:00";
-  showOnly("test");
-  startTimer();
-  renderQuestion();
-}
-function renderQuestion(){
-  const q=questions[current];
-  $("count").textContent=`Question ${current+1} of ${questions.length}`;
-  $("question").textContent=q.question;
-  $("progress").style.width=((current+1)/questions.length*100)+"%";
-  $("options").innerHTML="";
-  q.options.forEach((option,index)=>{
-    const label=document.createElement("label");
-    label.className="option";
-    const input=document.createElement("input");
-    input.type="radio";input.name="answer";input.value=index;
-    input.checked=answers[current]===index;
-    input.addEventListener("change",()=>{answers[current]=index;renderQuestion();});
-    const text=document.createElement("span");
-    text.textContent=String.fromCharCode(65+index)+". "+option;
-    label.append(input,text);
-    $("options").append(label);
-  });
-  $("prev").disabled=current===0;
-  $("next").classList.toggle("hidden",current===questions.length-1);
-  $("submit").classList.toggle("hidden",current!==questions.length-1);
-}
-function finishTest(){
-  stopTimer();
-  const cls=$("classSelect").value,subject=$("subjectSelect").value;
-  let correct=0;
-  questions.forEach((q,i)=>{if(answers[i]===q.answer)correct++;});
-  const wrong=questions.length-correct,percent=Math.round(correct/questions.length*100);
-  $("resultName").textContent=`Class ${cls} · ${subject} · Time: ${formatTime(elapsed)}`;
-  $("score").textContent=`${correct} / ${questions.length}`;
-  $("correct").textContent=correct;$("incorrect").textContent=wrong;
-  $("percent").textContent=percent+"%";
-  $("message").textContent=percent>=80?"Excellent work! Keep it up.":percent>=50?"Good effort! Review the answers and practise again.":"Keep practising. Learn from the review and try again.";
-  $("review").innerHTML="";
-  questions.forEach((q,i)=>{
-    const div=document.createElement("div");div.className="review";
-    const title=document.createElement("p");title.textContent=`${i+1}. ${q.question}`;
-    const your=document.createElement("p");
-    const chosen=answers[i]===null?"Not answered":q.options[answers[i]];
-    your.textContent="Your answer: "+chosen;
-    your.className=answers[i]===q.answer?"correct":"wrong";
-    const correctAnswer=document.createElement("p");
-    correctAnswer.className="correct";
-    correctAnswer.textContent="Correct answer: "+q.options[q.answer];
-    div.append(title,your,correctAnswer);$("review").append(div);
-  });
-  showOnly("result");
-}
-$("start").addEventListener("click",startTest);
-$("prev").addEventListener("click",()=>{if(current>0){current--;renderQuestion();}});
-$("next").addEventListener("click",()=>{if(current<questions.length-1){current++;renderQuestion();}});
-$("submit").addEventListener("click",()=>{
-  const unanswered=answers.filter(a=>a===null).length;
-  if(unanswered&&!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`))return;
-  finishTest();
-});
-$("exit").addEventListener("click",()=>{
-  if(confirm("Exit this test? Your current answers will be lost.")){stopTimer();showOnly("setup");}
-});
-$("retry").addEventListener("click",startTest);
-$("change").addEventListener("click",()=>showOnly("setup"));
-</script>
-</body>
-</html>
+Q("Which movement was launched by Mahatma Gandhi in 1942?",["Non-Cooperation","Quit India","Swadeshi of 1905","Khilafat only"],1,"The Quit India Movement began in August 1942."),
+Q("Which soil is especially suitable for growing cotton in India?",["Black soil","Mountain soil","Desert sand only","Laterite only"],0,"Black soil retains moisture and is suitable for cotton."),
+Q("The head of a municipal corporation is commonly called the…",["Mayor","Governor","Speaker","Sarpanch"],0,"A mayor typically leads a municipal corporation."),
+Q("Which natural process breaks rocks into smaller pieces in place?",["Weathering","Deposition only","Condensation","Rotation"],0,"Weathering breaks down rocks at or near Earth's surface."),
+Q("The Indian Constitution came into effect on…",["15 August 1947","26 January 1950","2 October 1950","26 November 1949"],1,"India celebrates Republic Day on 26 January, marking the Constitution's commencement.")
+],
+"General Knowledge":[
+Q("Which planet has the most prominent ring system?",["Mars","Saturn","Earth","Mercury"],1,"Saturn is famous for its extensive rings."),
+Q("What is the chemical symbol for gold?",["Ag","Gd","Au","Go"],2,"Au comes from the Latin word aurum."),
+Q("Which Indian state is famous for the Kaziranga National Park?",["Assam","Guj
