@@ -1,588 +1,371 @@
 
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Mock Test</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f5ff;
-      margin: 0;
-      color: #172554;
-    }
-
-    header {
-      background: #1746a2;
-      color: white;
-      padding: 24px 12px;
-      text-align: center;
-    }
-
-    main {
-      max-width: 650px;
-      margin: 25px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 14px;
-      box-shadow: 0 4px 15px #0001;
-    }
-
-    select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #ccd5e5;
-      font-size: 16px;
-    }
-
-    button {
-      background: #1746a2;
-      color: white;
-      cursor: pointer;
-    }
-
-    .option {
-      background: #eaf0ff;
-      color: #172554;
-      text-align: left;
-    }
-
-    #result {
-      font-weight: bold;
-      margin-top: 16px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swatu Mock Test for School Students</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:#1d4ed8;color:white;text-align:center;padding:25px 12px}
+header h1{margin:0 0 8px}
+main{max-width:800px;margin:25px auto;padding:0 14px}
+.card{background:white;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 4px 18px #0000000b}
+h2{margin-top:0}
+label{display:block;font-weight:bold;margin:12px 0 6px}
+select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:white}
+button{padding:11px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:bold;margin:5px 4px 0 0}
+.primary{background:#2563eb;color:white}
+.secondary{background:#e2e8f0;color:#172033}
+.option{display:flex;gap:10px;padding:13px;border:1px solid #cbd5e1;border-radius:9px;margin:10px 0;cursor:pointer}
+.option:has(input:checked){background:#eff6ff;border-color:#2563eb}
+.hidden{display:none!important}
+.bar{height:7px;background:#e2e8f0;border-radius:10px;margin:15px 0;overflow:hidden}
+#progress{height:100%;width:0;background:#2563eb}
+.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#64748b}
+.score{font-size:38px;font-weight:bold;color:#2563eb}
+.stat{display:inline-block;background:#f1f5f9;border-radius:8px;padding:14px;margin:4px;text-align:center}
+.review{border-top:1px solid #e2e8f0;padding:12px 0}
+.correct{color:#15803d}.wrong{color:#b91c1c}
+footer{text-align:center;color:#64748b;padding:20px}
+@media(max-width:480px){.card{padding:16px}.score{font-size:32px}}
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>Smart Mock Test</h1>
-    <p>NCERT | CBSE | Competitive Exams</p>
-  </header>
-
-  <main>
-    <div class="card">
-      <h2>अपनी परीक्षा चुनें</h2>
-
-      <label for="classSelect">कक्षा:</label>
-      <select id="classSelect">
-        <option>Class 6</option>
-        <option>Class 7</option>
-        <option>Class 8</option>
-        <option>Class 9</option>
-        <option>Class 10</option>
-        <option>Class 11</option>
-        <option>Class 12</option>
-      </select>
-
-      <label for="subject">विषय:</label>
-      <select id="subject">
-        <option>Science</option>
-        <option>Mathematics</option>
-        <option>English</option>
-        <option>Social Science</option>
-      </select>
-
-      <button onclick="startTest()">टेस्ट शुरू करें</button>
-
-      <div id="quiz" hidden>
-        <p id="progress"></p>
-        <h3 id="question"></h3>
-        <div id="options"></div>
-        <button onclick="nextQuestion()">अगला प्रश्न</button>
-      </div>
-
-      <div id="result"></div>
-    </div>
-  </main>
-
-  <script>
-    Log in
-Sign up for free
-You said:
-how to make a new website send me code for making a website for mock test according to each class standard and syallabus ncert +cbse + competitive
-
-ChatGPT said:
-You can build a website for online mock tests for every class, based on NCERT, CBSE, and competitive exam syllabuses. The website can allow students to select their class, subject, chapter, difficulty level, and exam type, then take a timed test and see their score instantly.
-
-I'll give you working starter code that you can use to create your own website, even if you're a beginner.
-
-1. What your mock test website should include
-Online Examination Dashboard Design by Sohail Karim on Dribbble
-Student dashboard
-
-Students choose Class 1–12, subject, and chapter, or prepare for a competitive exam.
-
-Quiz & Test Interface by Metehan Akıllıca on Dribbble
-Mock test engine
-
-Multiple-choice questions, timer, next/previous buttons, question navigation, and submit button.
-
-Online Learning - Prepare for K12, JEE & NEET with Online Courses | Extramarks
-Results and analysis
-
-Score, percentage, correct and incorrect answers, and explanations.
-
-What is SATHEE? Learn about Free JEE, NEET Coaching Platform
-Syllabus-based question bank
-
-NCERT chapter tests, CBSE practice papers, and competitive preparation for exams such as JEE, NEET, and CUET.
-
-2. Starter code for your website
-The easiest way to begin is with HTML, CSS, and JavaScript. This first version runs in a browser without installing anything or paying for hosting.
-
-It includes:
-
-Class and exam selection.
-
-Subject and chapter filters.
-
-Multiple-choice questions.
-
-A countdown timer.
-
-Automatic scoring and answer explanations.
-
-A responsive design for phones and computers.
-
-Step 1: Create your first website
-Open a text editor such as Notepad on your computer, or use an online editor such as 
-Replit .
-
-Create a file named index.html.
-
-Copy the complete code below into that file.
-
-Save it and open it in Chrome or another browser.
-
-
-<!DOCTYPE html>
-
-You said:
-send me the codes for making a website
-
-ChatGPT said:
-I'll give you a ready-to-use website for your Mock Test Platform with class-wise tests, NCERT + CBSE syllabus, and competitive exam practice. You can start with this code even if you're a beginner.
-
-The website will include:
-
-Classes 1–12 with class-wise subjects and tests.
-
-NCERT + CBSE study and practice sections.
-
-Competitive exams such as JEE, NEET, CUET, and other entrance exams.
-
-Mock tests with multiple-choice questions, a timer, automatic scoring, and results.
-
-A responsive design for mobile, tablet, and computer.
-
-Step 1: Create your website
-You only need a text editor and a web browser to get started.
-
-Create a folder named mock-test-website.
-
-Inside it, create a file named index.html.
-
-Copy all the code below into that file.
-
-Save it, then open index.html in Chrome or another browser.
-
-Step 2: Copy this complete website code
-This is a working starter website in one file. It has a homepage, class selection, subject selection, mock-test questions, a countdown timer, automatic marks, and a result screen.
-
-
-<!DOCTYPE html>
-
-You said:
-how to create a website
-
-ChatGPT said:
-I'll show you step by step how to create your own mock test website for Classes 1–12, NCERT, CBSE, and competitive exams.
-
-You don't need to know coding beforehand. Start with a simple website, then add more features as you learn.
-
-Step 1: Choose how you want to create the website
-Option 1 — Easiest: Use HTML, CSS, and JavaScript. Copy the code, save it, and open it in your browser.
-
-Option 2 — Professional: Use React for the website, Firebase or Supabase for storing questions and student accounts, and online hosting.
-
-Option 3 — No coding: Use a website builder such as WordPress.
-
-I recommend Option 1 to start.
-
-Step 2: Create your website files
-You need a folder named mock-test-website containing these three files:
-
-mock-test-website
-
-You said:
-in hindi
-
-ChatGPT said:
-वेबसाइट कैसे बनाएं? (शुरुआत से हिंदी में)
-आप अपनी ऑनलाइन Mock Test वेबसाइट बनाना चाहते हैं, जिसमें Class 1 से 12 तक के बच्चों के लिए NCERT, CBSE और JEE, NEET जैसी प्रतियोगी परीक्षाओं की तैयारी हो सके।
-
-स्टेप 1: वेबसाइट बनाने के लिए क्या चाहिए?
-HTML: वेबसाइट का ढांचा बनाने के लिए।
-
-CSS: वेबसाइट को सुंदर बनाने के लिए।
-
-JavaScript: टेस्ट, टाइमर और रिजल्ट चलाने के लिए।
-
-Hosting: वेबसाइट को इंटरनेट पर लाइव करने के लिए।
-
-स्टेप 2: अपना पहला वेबसाइट कोड बनाएं
-सबसे पहले कंप्यूटर या लैपटॉप में Notepad खोलें और नीचे दिया गया पूरा कोड कॉपी करें।
-
-
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Mock Test</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f5ff;
-      margin: 0;
-      color: #172554;
-    }
-
-    header {
-      background: #1746a2;
-      color: white;
-      padding: 24px 12px;
-      text-align: center;
-    }
-
-    main {
-      max-width: 650px;
-      margin: 25px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 14px;
-      box-shadow: 0 4px 15px #0001;
-    }
-
-    select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #ccd5e5;
-      font-size: 16px;
-    }
-
-    button {
-      background: #1746a2;
-      color: white;
-      cursor: pointer;
-    }
-
-    .option {
-      background: #eaf0ff;
-      color: #172554;
-      text-align: left;
-    }
-
-    #result {
-      font-weight: bold;
-      margin-top: 16px;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <h1>Smart Mock Test</h1>
-    <p>NCERT | CBSE | Competitive Exams</p>
-  </header>
-
-  <main>
-    <div class="card">
-      <h2>अपनी परीक्षा चुनें</h2>
-
-      <label for="classSelect">कक्षा:</label>
-      <select id="classSelect">
-        <option>Class 6</option>
-        <option>Class 7</option>
-        <option>Class 8</option>
-        <option>Class 9</option>
-        <option>Class 10</option>
-        <option>Class 11</option>
-        <option>Class 12</option>
-      </select>
-
-      <label for="subject">विषय:</label>
-      <select id="subject">
-        <option>Science</option>
-        <option>Mathematics</option>
-        <option>English</option>
-        <option>Social Science</option>
-      </select>
-
-      <button onclick="startTest()">टेस्ट शुरू करें</button>
-
-      <div id="quiz" hidden>
-        <p id="progress"></p>
-        <h3 id="question"></h3>
-        <div id="options"></div>
-        <button onclick="nextQuestion()">अगला प्रश्न</button>
-      </div>
-
-      <div id="result"></div>
-    </div>
-  </main>
-
-  <script>
-    const questions = [
-      {
-        q: "पौधे अपना भोजन किस प्रक्रिया से बनाते हैं?",
-        options: ["श्वसन", "प्रकाश संश्लेषण", "पाचन", "वाष्पीकरण"],
-        answer: 1
-      },
-      {
-        q: "12 × 8 का मान कितना है?",
-        options: ["86", "92", "96", "108"],
-        answer: 2
-      },
-      {
-        q: "जल का रासायनिक सूत्र क्या है?",
-        options: ["CO2", "O2", "H2O", "NaCl"],
-        answer: 2
-      }
-    ];
-
-    let current = 0;
-    let score = 0;
-    let selected = null;
-
-    function startTest() {
-      current = 0;
-      score = 0;
-      selected = null;
-
-      document.getElementById("result").textContent = "";
-      document.getElementById("quiz").hidden = false;
-      showQuestion();
-    }
-
-    function showQuestion() {
-      const q = questions[current];
-      selected = null;
-
-      document.getElementById("progress").textContent =
-        `प्रश्न ${current + 1} / ${questions.length}`;
-
-      document.getElementById("question").textContent = q.q;
-
-      const box = document.getElementById("options");
-      box.replaceChildren();
-
-      q.options.forEach((option, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.className = "option";
-
-        btn.onclick = () => {
-          selected = index;
-
-          Array.from(box.children).forEach((b, i) => {
-            b.style.background = i === index ? "#b9d0ff" : "#eaf0ff";
-          });
-        };
-
-        box.appendChild(btn);
-      });
-    }
-
-    function nextQuestion() {
-      if (selected === null) {
-        alert("कृपया एक उत्तर चुनें।");
-        return;
-      }
-
-      if (selected === questions[current].answer) {
-        score++;
-      }
-
-      current++;
-
-      if (current < questions.length) {
-        showQuestion();
-      } else {
-        document.getElementById("quiz").hidden = true;
-
-        document.getElementById("result").textContent =
-          `आपका परिणाम: ${score}/${questions.length} सही उत्तर। ` +
-          `प्रतिशत: ${Math.round(score / questions.length * 100)}%`;
-      }
-    }
-  </script>
-</body>
-</html>
-Copied
-स्टेप 3: वेबसाइट को कैसे चलाएं?
-अपने कंप्यूटर में Notepad खोलें।
-ऊपर दिया गया पूरा कोड कॉपी करके पेस्ट करें।
-File → Save As पर क्लिक करें।
-फाइल का नाम index.html रखें और Save as type में All Files चुनें।
-
-अब index.html फाइल पर डबल-क्लिक करें। आपकी वेबसाइट ब्राउज़र में खुल जाएगी।
-
-ध्यान दें: यह शुरुआती डेमो है। अभी इसमें नमूना प्रश्न हैं; कक्षा और विषय चुनने से प्रश्न अपने आप नहीं बदलते। असली वेबसाइट के लिए अलग-अलग कक्षाओं और अध्यायों के प्रश्न जोड़ने होंगे।
-
-स्टेप 4: वेबसाइट को इंटरनेट पर लाइव कैसे करें?
-आप अपनी वेबसाइट की फाइलें GitHub Pages या Netlify जैसी होस्टिंग सेवाओं पर अपलोड कर सकते हैं। इससे वेबसाइट का लिंक मिलेगा, जिसे विद्यार्थी अपने मोबाइल पर खोल सकेंगे। लॉगिन, प्रश्न बैंक मैनेजमेंट और विद्यार्थियों के रिकॉर्ड के लिए बाद में बैकएंड और डेटाबेस भी जोड़ना होगा।
-
-अब मुझे बताइए
-आप वेबसाइट किस डिवाइस से बनाना चाहते हैं?
-
-1. आप किस डिवाइस का इस्तेमाल करेंगे?
-
-
-मोबाइल फोन
-
-लैपटॉप या कंप्यूटर
-2. आपको कैसी वेबसाइट चाहिए?
-
-
-साधारण वेबसाइट — केवल ऑनलाइन टेस्ट
-
-पूरी वेबसाइट — छात्र लॉगिन, टेस्ट, टाइमर, रिजल्ट और एडमिन पैनल
-3. वेबसाइट का नाम क्या रखना चाहते हैं?
-
-Smart Mock Test
-
-You said:
-send me the javascript code questions for students mock test according to their standards  100 question at a time
-
-ChatGPT said:
-बिल्कुल! आपकी Mock Test वेबसाइट के लिए मैं JavaScript में प्रश्नों का ऐसा Question Bank दे सकता हूँ, जिसमें हर बार 100 प्रश्न हों और प्रश्न विद्यार्थी की कक्षा, विषय और सिलेबस के अनुसार चुने जाएँ।
-
-पहले यह कोड script.js में डालें। इसमें Class 6 के गणित के 100 प्रश्नों का सेट बनाने का ढाँचा और टेस्ट चलाने का JavaScript लॉजिक है। नीचे दिए गए प्रश्न नमूने हैं; इन्हें संबंधित NCERT अध्यायों से सत्यापित करके इस्तेमाल करें।
-
-1. script.js — 100 प्रश्नों वाला Mock Test
-यह कोड प्रश्न दिखाएगा, उत्तर जाँचेगा और अंत में स्कोर बताएगा।
-
-javascript
-
-const questionBank = {
-  "Class 6": {
-    Mathematics: [
-      {
-        question: "12 × 8 का मान क्या है?",
-        options: ["86", "96", "108", "92"],
-        answer: 1,
-        explanation: "12 × 8 = 96"
-      },
-      {
-        question: "1 किलोमीटर में कितने मीटर होते हैं?",
-        options: ["100", "500", "1000", "10000"],
-        answer: 2,
-        explanation: "1 किलोमीटर = 1000 मीटर"
-      },
-      {
-        question: "सबसे छोटी अभाज्य संख्या कौन-सी है?",
-        options: ["1", "2", "3", "0"],
-        answer: 1,
-        explanation: "2 सबसे छोटी अभाज्य संख्या है।"
-      },
-      {
-        question: "3/4 का दशमलव रूप क्या है?",
-        options: ["0.25", "0.5", "0.75", "1.25"],
-        answer: 2,
-        explanation: "3 ÷ 4 = 0.75"
-      },
-      {
-        question: "एक त्रिभुज की कितनी भुजाएँ होती हैं?",
-        options: ["2", "3", "4", "5"],
-        answer: 1,
-        explanation: "त्रिभुज की 3 भुजाएँ होती हैं।"
-      }
-    ]
-  }
+<header>
+<h1>Swatu Mock Test</h1>
+<p>Smart Practice for School Students | Classes 6–12</p>
+</header>
+<main>
+<section class="card" id="setup">
+<h2>Start Your Mock Test</h2>
+<label for="classSelect">Select Class</label>
+<select id="classSelect">
+<option value="6">Class 6</option><option value="7">Class 7</option>
+<option value="8">Class 8</option><option value="9">Class 9</option>
+<option value="10">Class 10</option><option value="11">Class 11</option>
+<option value="12">Class 12</option>
+</select>
+<label for="subjectSelect">Select Subject</label>
+<select id="subjectSelect">
+<option>Science</option><option>Mathematics</option>
+<option>English</option><option>Social Science</option>
+</select>
+<p id="level">Difficulty: Easy</p>
+<button class="primary" id="start">Start Test</button>
+</section>
+
+<section class="card hidden" id="test">
+<div class="meta"><span id="testName"></span><span id="count"></span><span id="timer">00:00</span></div>
+<div class="bar"><div id="progress"></div></div>
+<h3 id="question"></h3>
+<div id="options"></div>
+<button class="secondary" id="prev">Previous</button>
+<button class="primary" id="next">Next Question</button>
+<button class="primary hidden" id="submit">Submit Test</button>
+<button class="secondary" id="exit">Exit</button>
+</section>
+
+<section class="card hidden" id="result">
+<h2>Test Result</h2>
+<p id="resultName"></p>
+<div class="score" id="score"></div>
+<p id="message"></p>
+<div class="stat">Correct<br><strong id="correct"></strong></div>
+<div class="stat">Incorrect<br><strong id="incorrect"></strong></div>
+<div class="stat">Percentage<br><strong id="percent"></strong></div>
+<h3>Answer Review</h3>
+<div id="review"></div>
+<button class="primary" id="retry">Try Again</button>
+<button class="secondary" id="change">Choose Another Test</button>
+</section>
+</main>
+<footer>© <span id="year"></span> Swatu Mock Test</footer>
+
+<script>
+// Answer is the zero-based index of the correct option.
+const allQuestions = {
+"6":{
+"Science":[
+{question:"Which plant part absorbs water?",options:["Flower","Root","Leaf","Fruit"],answer:1},
+{question:"Which food is rich in vitamin C?",options:["Lemon","Butter","Rice","Salt"],answer:0},
+{question:"Which material is magnetic?",options:["Wood","Plastic","Iron","Rubber"],answer:2},
+{question:"What is Earth's main energy source?",options:["Moon","Sun","Mars","Ocean"],answer:1},
+{question:"Which state has a fixed shape?",options:["Gas","Liquid","Solid","Vapour"],answer:2}],
+"Mathematics":[
+{question:"What is 125 + 275?",options:["300","350","400","425"],answer:2},
+{question:"What is 3/4 of 20?",options:["5","10","15","18"],answer:2},
+{question:"How many sides does a hexagon have?",options:["5","6","7","8"],answer:1},
+{question:"Perimeter of a square with side 5 cm?",options:["10 cm","15 cm","20 cm","25 cm"],answer:2},
+{question:"What is the smallest prime number?",options:["0","1","2","3"],answer:2}],
+"English":[
+{question:"Choose the plural of child.",options:["Childs","Children","Childes","Childrens"],answer:1},
+{question:"Opposite of ancient?",options:["Old","Historic","Modern","Past"],answer:2},
+{question:"Which word is a verb?",options:["Beautiful","Quickly","Jump","Blue"],answer:2},
+{question:"She ___ to school every day.",options:["go","goes","going","gone"],answer:1},
+{question:"___ apple a day.",options:["A","An","Thee","No article"],answer:1}],
+"Social Science":[
+{question:"Which planet do we live on?",options:["Mars","Earth","Venus","Jupiter"],answer:1},
+{question:"What does a map show?",options:["Recipes","Places","Songs","Only time"],answer:1},
+{question:"Who heads a Gram Panchayat?",options:["Sarpanch","Governor","President","Judge"],answer:0},
+{question:"The Sun generally rises in the:",options:["North","South","East","West"],answer:2},
+{question:"Which is a natural resource?",options:["Plastic toy","Water","Notebook","Brick"],answer:1}]},
+"7":{
+"Science":[
+{question:"Water vapour changing to liquid is called:",options:["Evaporation","Condensation","Melting","Freezing"],answer:1},
+{question:"Which nutrient helps growth and tissue repair?",options:["Protein","Fibre","Salt","Sugar only"],answer:0},
+{question:"What is the basic unit of life?",options:["Organ","Tissue","Cell","Bone"],answer:2},
+{question:"Which is a good electrical conductor?",options:["Rubber","Copper","Dry wood","Plastic"],answer:1},
+{question:"Plants make food by:",options:["Respiration","Digestion","Photosynthesis","Germination"],answer:2}],
+"Mathematics":[
+{question:"Calculate (-8) + 13.",options:["-21","-5","5","21"],answer:2},
+{question:"Solve 4x = 28.",options:["6","7","8","9"],answer:1},
+{question:"What is 15% of 200?",options:["15","20","30","35"],answer:2},
+{question:"An angle of 90° is:",options:["Acute","Right","Obtuse","Straight"],answer:1},
+{question:"Mean of 4, 6 and 8?",options:["5","6","7","8"],answer:1}],
+"English":[
+{question:"Past tense of write?",options:["Writed","Written","Wrote","Writing"],answer:2},
+{question:"Synonym of brave?",options:["Cowardly","Courageous","Weak","Quiet"],answer:1},
+{question:"Identify the adjective: The tall tree swayed.",options:["The","Tall","Tree","Swayed"],answer:1},
+{question:"Choose the correct sentence.",options:["They is ready.","They are ready.","They am ready.","They be ready."],answer:1},
+{question:"Plural of mouse?",options:["Mouses","Mices","Mice","Mouse"],answer:2}],
+"Social Science":[
+{question:"0° latitude is called the:",options:["Prime Meridian","Equator","Tropic of Cancer","Arctic Circle"],answer:1},
+{question:"Largest continent?",options:["Africa","Europe","Asia","Australia"],answer:2},
+{question:"Democracy means:",options:["King's rule","Rule by the people","Army rule","Company rule"],answer:1},
+{question:"Who built the Taj Mahal?",options:["Akbar","Babur","Shah Jahan","Aurangzeb"],answer:2},
+{question:"Farming belongs to which economic sector?",options:["Primary","Secondary","Tertiary","Digital"],answer:0}]},
+"8":{
+"Science":[
+{question:"Which force opposes motion between surfaces?",options:["Gravity","Friction","Magnetism","Buoyancy"],answer:1},
+{question:"Chemical symbol for oxygen?",options:["Ox","O","Og","Oy"],answer:1},
+{question:"Which bacteria help turn milk into curd?",options:["Lactobacillus","Plasmodium","Amoeba","Virus"],answer:0},
+{question:"Which gas is used in many fire extinguishers?",options:["Oxygen","Hydrogen","Carbon dioxide","Helium"],answer:2},
+{question:"Which cell structure controls most activities?",options:["Cell wall","Nucleus","Vacuole","Membrane only"],answer:1}],
+"Mathematics":[
+{question:"Solve 3x + 5 = 20.",options:["3","5","7","15"],answer:1},
+{question:"Square of 17?",options:["279","289","299","309"],answer:1},
+{question:"Sum of interior angles of a quadrilateral?",options:["180°","270°","360°","540°"],answer:2},
+{question:"Express 0.25 as a fraction.",options:["1/2","1/3","1/4","2/5"],answer:2},
+{question:"Cube of 3?",options:["9","18","27","36"],answer:2}],
+"English":[
+{question:"Passive voice of 'The boy kicked the ball.'",options:["The ball kicked the boy.","The ball was kicked by the boy.","The boy was kicked by the ball.","The ball is kick by the boy."],answer:1},
+{question:"Which word is an adverb?",options:["Careful","Carefully","Care","Caring"],answer:1},
+{question:"Choose the correct spelling.",options:["Accomodation","Accommodation","Acommodation","Accommadation"],answer:1},
+{question:"Antonym of expand?",options:["Enlarge","Extend","Contract","Increase"],answer:2},
+{question:"If I ___ time, I will help you.",options:["have","had","has","having"],answer:0}],
+"Social Science":[
+{question:"Which is a renewable energy resource?",options:["Coal","Petroleum","Solar energy","Natural gas"],answer:2},
+{question:"Secularism in India broadly involves:",options:["One official religion","Equal respect for religions","No elections","Rule by priests"],answer:1},
+{question:"Which movement began in 1942?",options:["Non-Cooperation","Quit India","Swadeshi","Khilafat"],answer:1},
+{question:"Which soil is suitable for cotton?",options:["Black soil","Snow","Desert sand only","Mountain ice"],answer:0},
+{question:"Which body makes Union laws in India?",options:["Parliament","Municipality only","Gram Sabha only","Election Commission"],answer:0}]},
+"9":{
+"Science":[
+{question:"A 10 N force produces acceleration 2 m/s². Find mass.",options:["2 kg","5 kg","10 kg","20 kg"],answer:1},
+{question:"Which subatomic particle has a negative charge?",options:["Proton","Neutron","Electron","Nucleus"],answer:2},
+{question:"Main site of aerobic respiration in a cell?",options:["Ribosome","Mitochondrion","Golgi apparatus","Lysosome"],answer:1},
+{question:"The pH of neutral water at 25°C is approximately:",options:["0","5","7","14"],answer:2},
+{question:"Action and reaction are equal and opposite under:",options:["Newton's first law","Second law","Third law","Gravitation law"],answer:2}],
+"Mathematics":[
+{question:"Roots of x² - 5x + 6 = 0?",options:["1 and 6","2 and 3","-2 and -3","0 and 5"],answer:1},
+{question:"Point (0, -4) lies on which axis?",options:["x-axis","y-axis","Both axes","Neither"],answer:1},
+{question:"Simplify (a²)(a³).",options:["a⁵","a⁶","a⁹","2a⁵"],answer:0},
+{question:"Angles of a triangle are 45° and 65°. Third angle?",options:["60°","70°","80°","90°"],answer:1},
+{question:"Probability of an even number on a fair die?",options:["1/6","1/3","1/2","2/3"],answer:2}],
+"English":[
+{question:"Reported speech: He said, 'I am tired.'",options:["He said I am tired.","He said that he was tired.","He says he tired.","He said he is tire."],answer:1},
+{question:"A comparison using 'like' or 'as' is a:",options:["Metaphor","Simile","Irony","Personification"],answer:1},
+{question:"Choose the correct sentence.",options:["Neither answer are correct.","Neither answer is correct.","Neither answers is correct.","Neither answer were correct."],answer:1},
+{question:"Closest meaning of reluctant?",options:["Unwilling","Excited","Certain","Careless"],answer:0},
+{question:"In 'I stayed home because it rained', the subordinate clause is:",options:["I stayed home","because it rained","I stayed","home because"],answer:1}],
+"Social Science":[
+{question:"A key event at the start of the French Revolution in 1789 was:",options:["Storming of the Bastille","Battle of Waterloo","Congress of Vienna","German unification"],answer:0},
+{question:"Which soil is widespread in northern Indian plains?",options:["Alluvial","Only mountain soil","Only desert soil","Only black soil"],answer:0},
+{question:"The main purpose of a constitution is to:",options:["Replace all courts","Set principles of governance","Predict weather","Manage shops"],answer:1},
+{question:"Federalism involves:",options:["All power in one local council","Power shared across levels of government","Courts make every law","No elections"],answer:1},
+{question:"Average income per person is called:",options:["Population density","Per capita income","Literacy rate","Birth rate"],answer:1}]},
+"10":{
+"Science":[
+{question:"A lens has focal length +20 cm. Its power is:",options:["+2 D","+5 D","-2 D","-5 D"],answer:1},
+{question:"Which equation expresses Ohm's law?",options:["V = IR","P = VI²","F = mv","E = mc"],answer:0},
+{question:"Which organisms are usually producers in a food chain?",options:["Green plants","Carnivores","Fungi only","Top predators"],answer:0},
+{question:"Functional group in ethanoic acid?",options:["-OH","-CHO","-COOH","-NH₂"],answer:2},
+{question:"Human fertilisation usually occurs in the:",options:["Uterus","Oviduct","Ovary surface only","Cervix"],answer:1}],
+"Mathematics":[
+{question:"If roots of x² - 7x + 10 = 0 are α and β, α + β equals:",options:["-7","7","10","-10"],answer:1},
+{question:"Distance between (1,2) and (4,6)?",options:["3","4","5","7"],answer:2},
+{question:"If tan θ = 3/4 for acute θ, sin θ is:",options:["3/5","4/5","3/4","4/3"],answer:0},
+{question:"10th term of an AP with a=2 and d=3?",options:["27","29","30","32"],answer:1},
+{question:"Circumference of radius 7 cm (π=22/7)?",options:["22 cm","44 cm","49 cm","154 cm"],answer:1}],
+"English":[
+{question:"Choose the correct transformation: 'No other metal is as useful as iron.'",options:["Iron is more useful than any other metal.","Iron is not useful.","All metals are equally useful.","Iron is least useful."],answer:0},
+{question:"The evidence was too ___ to ignore.",options:["Compelling","Compelled","Compulsion","Compel"],answer:0},
+{question:"'The wind whispered through the trees' uses:",options:["Hyperbole","Personification","Oxymoron","Pun"],answer:1},
+{question:"Choose the correct conditional sentence.",options:["If I had known, I would have called.","If I knew, I will have called yesterday.","If I have known, I would call yesterday.","If I would know, I called."],answer:0},
+{question:"Concise means:",options:["Brief and clear","Long and confusing","Unrelated","Uncertain"],answer:0}],
+"Social Science":[
+{question:"Division of power among legislature, executive and judiciary is:",options:["Horizontal distribution","Vertical distribution","Military rule","Single-party rule"],answer:0},
+{question:"Which institution issues most currency notes in India?",options:["SBI","Reserve Bank of India","Finance Commission","NITI Aayog"],answer:1},
+{question:"Which is a major non-renewable energy source?",options:["Solar","Wind","Coal","Tidal"],answer:2},
+{question:"Which crop is commonly associated with black soil?",options:["Cotton","Tea only","Jute only","Coconut only"],answer:0},
+{question:"Globalisation increases connections between:",options:["Only villages","Countries and economies","Only families","Only forests"],answer:1}]},
+"11":{
+"Science":[
+{question:"For an ideal gas, the equation of state is:",options:["PV=nRT","P=mv","V=IR²","F=ma²"],answer:0},
+{question:"The SI unit of electric charge is:",options:["Ampere","Volt","Coulomb","Ohm"],answer:2},
+{question:"Which quantum number determines an orbital's shape?",options:["Principal n","Azimuthal l","Magnetic m","Spin s"],answer:1},
+{question:"For a projectile launched and landing at the same height, maximum range occurs at:",options:["30°","45°","60°","90°"],answer:1},
+{question:"Which bond involves sharing electron pairs?",options:["Ionic","Covalent","Metallic only","Hydrogen only"],answer:1}],
+"Mathematics":[
+{question:"Derivative of sin x with respect to x?",options:["-sin x","cos x","tan x","-cos x"],answer:1},
+{question:"How many distinct permutations can be formed from the letters of CAT?",options:["3","6","9","12"],answer:1},
+{question:"If P(A)=0.4, then P(not A) equals:",options:["0.4","0.5","0.6","1.4"],answer:2},
+{question:"Distance between points (2,3) and (6,6)?",options:["4","5","6","7"],answer:1},
+{question:"Solve 2ˣ = 32.",options:["3","4","5","6"],answer:2}],
+"English":[
+{question:"Which sentence correctly uses the subjunctive?",options:["I suggest that he be present.","I suggest he is present yesterday.","I suggest he was be present.","I suggest him be present."],answer:0},
+{question:"A statement that contradicts itself is a:",options:["Simile","Paradox","Euphemism","Alliteration"],answer:1},
+{question:"Choose the correct collocation.",options:["Do a decision","Make a decision","Create a homework","Make an effortly"],answer:1},
+{question:"'Ubiquitous' most nearly means:",options:["Rare","Present everywhere","Temporary","Unclear"],answer:1},
+{question:"Which is an example of an independent clause?",options:["Although it rained","When the bell rang","The team won","Because we left"],answer:2}],
+"Social Science":[
+{question:"Which institution is responsible for monetary policy in India?",options:["RBI","Election Commission","Supreme Court","CAG"],answer:0},
+{question:"Opportunity cost refers to:",options:["All money spent","Value of the next best alternative forgone","Total revenue","Fixed cost only"],answer:1},
+{question:"Which is a core feature of a federal constitution?",options:["Constitutional division of powers","No courts","No elections","One local authority controls all"],answer:0},
+{question:"GDP measures the value of final goods and services produced:",options:["Only abroad by citizens","Within a country during a period","Only by government","Only by farms"],answer:1},
+{question:"Which factor most directly increases human capital?",options:["Education and training","Soil erosion","Inflation alone","Import duties alone"],answer:0}]},
+"12":{
+"Science":[
+{question:"For a first-order reaction, the half-life is:",options:["Proportional to initial concentration","Independent of initial concentration","Always zero","Equal to activation energy"],answer:1},
+{question:"The electric field inside an ideal conductor in electrostatic equilibrium is:",options:["Infinite","Zero","Always 1 N/C","Dependent only on mass"],answer:1},
+{question:"In DNA, adenine pairs with:",options:["Guanine","Cytosine","Thymine","Uracil"],answer:2},
+{question:"The SI unit of magnetic flux is:",options:["Tesla","Weber","Henry","Farad"],answer:1},
+{question:"Which process converts an aldehyde to a primary alcohol?",options:["Oxidation","Reduction","Hydrolysis only","Polymerisation"],answer:1}],
+"Mathematics":[
+{question:"Evaluate ∫₀¹ 2x dx.",options:["0","1","2","4"],answer:1},
+{question:"If A is a 2×3 matrix and B is a 3×4 matrix, the order of AB is:",options:["2×4","3×3","4×2","3×4"],answer:0},
+{question:"Derivative of ln x for x>0?",options:["x","1/x","ln x","eˣ"],answer:1},
+{question:"If two events are independent, then:",options:["P(A∩B)=P(A)+P(B)","P(A∩B)=P(A)P(B)","P(A)=P(B) always","P(A∪B)=0"],answer:1},
+{question:"Solve dy/dx = 2x with y(0)=3.",options:["y=x²","y=x²+3","y=2x+3","y=x+3"],answer:1}],
+"English":[
+{question:"In literary criticism, 'juxtaposition' means:",options:["Placing things side by side for contrast","Repeating a sound","Exaggerating a claim","Giving human traits to objects"],answer:0},
+{question:"Choose the sentence with correct parallel structure.",options:["She likes reading, to swim, and cycling.","She likes reading, swimming, and cycling.","She likes to read, swimming, and cycle.","She likes read, swim, and cycling."],answer:1},
+{question:"'Ephemeral' most nearly means:",options:["Lasting forever","Short-lived","Highly visible","Extremely loud"],answer:1},
+{question:"A narrator who knows the thoughts of all characters is:",options:["First-person limited","Omniscient","Unreliable by definition","An observer only"],answer:1},
+{question:"Which phrase is an example of verbal irony?",options:["A cold piece of ice","Calling a terrible day 'wonderful'","The sun rose","A very tall building"],answer:1}],
+"Social Science":[
+{question:"Comparative advantage is based on differences in:",options:["Opportunity costs","Population only","Currency names","Weather alone"],answer:0},
+{question:"Which principle means treating similar cases similarly under law?",options:["Rule of law and equality","Absolute monarchy","Censorship","Arbitrary rule"],answer:0},
+{question:"A sustained rise in the general price level is called:",options:["Deflation","Inflation","Recession only","Appreciation"],answer:1},
+{question:"The Human Development Index combines indicators of health, education and:",options:["Income","Military size","Exports only","Rainfall"],answer:0},
+{question:"Which body adjudicates disputes under India's constitutional system at the highest judicial level?",options:["Supreme Court","Lok Sabha Secretariat","Election Commission","Planning department"],answer:0}]}
 };
 
-    let current = 0;
-    let score = 0;
-    let selected = null;
+// Keep five questions for every class and subject.
+let questions=[], answers=[], current=0, startedAt=0, timerHandle=null, elapsed=0;
+const $=id=>document.getElementById(id);
+$("year").textContent=new Date().getFullYear();
 
-    function startTest() {
-      current = 0;
-      score = 0;
-      selected = null;
+function updateLevel(){
+  const c=Number($("classSelect").value);
+  $("level").textContent="Difficulty: "+(c<=8?"Easy":"Hard");
+}
+$("classSelect").addEventListener("change",updateLevel);
+updateLevel();
 
-      document.getElementById("result").textContent = "";
-      document.getElementById("quiz").hidden = false;
-      showQuestion();
-    }
-
-    function showQuestion() {
-      const q = questions[current];
-      selected = null;
-
-      document.getElementById("progress").textContent =
-        `प्रश्न ${current + 1} / ${questions.length}`;
-
-      document.getElementById("question").textContent = q.q;
-
-      const box = document.getElementById("options");
-      box.replaceChildren();
-
-      q.options.forEach((option, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.className = "option";
-
-        btn.onclick = () => {
-          selected = index;
-
-          Array.from(box.children).forEach((b, i) => {
-            b.style.background = i === index ? "#b9d0ff" : "#eaf0ff";
-          });
-        };
-
-        box.appendChild(btn);
-      });
-    }
-
-    function nextQuestion() {
-      if (selected === null) {
-        alert("कृपया एक उत्तर चुनें।");
-        return;
-      }
-
-      if (selected === questions[current].answer) {
-        score++;
-      }
-
-      current++;
-
-      if (current < questions.length) {
-        showQuestion();
-      } else {
-        document.getElementById("quiz").hidden = true;
-
-        document.getElementById("result").textContent =
-          `आपका परिणाम: ${score}/${questions.length} सही उत्तर। ` +
-          `प्रतिशत: ${Math.round(score / questions.length * 100)}%`;
-      }
-    }
-  </script>
+function stopTimer(){
+  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
+}
+function formatTime(seconds){
+  const m=String(Math.floor(seconds/60)).padStart(2,"0");
+  const s=String(seconds%60).padStart(2,"0");
+  return m+":"+s;
+}
+function startTimer(){
+  startedAt=Date.now()-elapsed*1000;
+  stopTimer();
+  timerHandle=setInterval(()=>{
+    elapsed=Math.floor((Date.now()-startedAt)/1000);
+    $("timer").textContent=formatTime(elapsed);
+  },1000);
+}
+function showOnly(section){
+  ["setup","test","result"].forEach(id=>$(id).classList.toggle("hidden",id!==section));
+}
+function startTest(){
+  const cls=$("classSelect").value, subject=$("subjectSelect").value;
+  questions=allQuestions[cls][subject];
+  answers=Array(questions.length).fill(null);
+  current=0;elapsed=0;
+  $("testName").textContent=`Class ${cls} · ${subject} · ${Number(cls)<=8?"Easy":"Hard"}`;
+  $("timer").textContent="00:00";
+  showOnly("test");
+  startTimer();
+  renderQuestion();
+}
+function renderQuestion(){
+  const q=questions[current];
+  $("count").textContent=`Question ${current+1} of ${questions.length}`;
+  $("question").textContent=q.question;
+  $("progress").style.width=((current+1)/questions.length*100)+"%";
+  $("options").innerHTML="";
+  q.options.forEach((option,index)=>{
+    const label=document.createElement("label");
+    label.className="option";
+    const input=document.createElement("input");
+    input.type="radio";input.name="answer";input.value=index;
+    input.checked=answers[current]===index;
+    input.addEventListener("change",()=>{answers[current]=index;renderQuestion();});
+    const text=document.createElement("span");
+    text.textContent=String.fromCharCode(65+index)+". "+option;
+    label.append(input,text);
+    $("options").append(label);
+  });
+  $("prev").disabled=current===0;
+  $("next").classList.toggle("hidden",current===questions.length-1);
+  $("submit").classList.toggle("hidden",current!==questions.length-1);
+}
+function finishTest(){
+  stopTimer();
+  const cls=$("classSelect").value,subject=$("subjectSelect").value;
+  let correct=0;
+  questions.forEach((q,i)=>{if(answers[i]===q.answer)correct++;});
+  const wrong=questions.length-correct,percent=Math.round(correct/questions.length*100);
+  $("resultName").textContent=`Class ${cls} · ${subject} · Time: ${formatTime(elapsed)}`;
+  $("score").textContent=`${correct} / ${questions.length}`;
+  $("correct").textContent=correct;$("incorrect").textContent=wrong;
+  $("percent").textContent=percent+"%";
+  $("message").textContent=percent>=80?"Excellent work! Keep it up.":percent>=50?"Good effort! Review the answers and practise again.":"Keep practising. Learn from the review and try again.";
+  $("review").innerHTML="";
+  questions.forEach((q,i)=>{
+    const div=document.createElement("div");div.className="review";
+    const title=document.createElement("p");title.textContent=`${i+1}. ${q.question}`;
+    const your=document.createElement("p");
+    const chosen=answers[i]===null?"Not answered":q.options[answers[i]];
+    your.textContent="Your answer: "+chosen;
+    your.className=answers[i]===q.answer?"correct":"wrong";
+    const correctAnswer=document.createElement("p");
+    correctAnswer.className="correct";
+    correctAnswer.textContent="Correct answer: "+q.options[q.answer];
+    div.append(title,your,correctAnswer);$("review").append(div);
+  });
+  showOnly("result");
+}
+$("start").addEventListener("click",startTest);
+$("prev").addEventListener("click",()=>{if(current>0){current--;renderQuestion();}});
+$("next").addEventListener("click",()=>{if(current<questions.length-1){current++;renderQuestion();}});
+$("submit").addEventListener("click",()=>{
+  const unanswered=answers.filter(a=>a===null).length;
+  if(unanswered&&!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`))return;
+  finishTest();
+});
+$("exit").addEventListener("click",()=>{
+  if(confirm("Exit this test? Your current answers will be lost.")){stopTimer();showOnly("setup");}
+});
+$("retry").addEventListener("click",startTest);
+$("change").addEventListener("click",()=>showOnly("setup"));
+</script>
 </body>
 </html>
