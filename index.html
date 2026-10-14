@@ -1,283 +1,588 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartTest - School Mock Test</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Mock Test</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
-header{background:#2563eb;color:white;padding:22px;text-align:center}
-.hero{text-align:center;padding:35px 15px;background:#dbeafe}
-.hero h2{color:#1d4ed8;margin-bottom:10px}
-.container{max-width:750px;margin:25px auto;padding:15px}
-.card{background:white;padding:25px;border-radius:14px;margin-bottom:20px;box-shadow:0 4px 15px #0001}
-h2{margin-bottom:18px}
-label{display:block;margin:12px 0 6px;font-weight:bold}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:7px;font-size:16px}
-button{padding:12px 18px;border:0;border-radius:7px;background:#2563eb;color:white;font-size:16px;cursor:pointer;margin-top:15px}
-button:hover{background:#1d4ed8}
-.primary{width:100%}
-.hidden{display:none}
-.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-#timer{color:#dc2626;font-weight:bold}
-.question{padding:18px 0;border-bottom:1px solid #ddd}
-.question h3{margin-bottom:10px;font-size:17px}
-.option{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #ddd;border-radius:7px;margin:8px 0;cursor:pointer;font-weight:normal}
-.option input{width:auto}
-#score{font-size:40px;color:#2563eb;font-weight:bold;margin:15px 0}
-.review{padding:12px 0;border-bottom:1px solid #ddd}
-footer{text-align:center;padding:20px;background:#0f172a;color:white}
-</style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f5ff;
+      margin: 0;
+      color: #172554;
+    }
+
+    header {
+      background: #1746a2;
+      color: white;
+      padding: 24px 12px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px #0001;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccd5e5;
+      font-size: 16px;
+    }
+
+    button {
+      background: #1746a2;
+      color: white;
+      cursor: pointer;
+    }
+
+    .option {
+      background: #eaf0ff;
+      color: #172554;
+      text-align: left;
+    }
+
+    #result {
+      font-weight: bold;
+      margin-top: 16px;
+    }
+  </style>
 </head>
 
 <body>
-<header>
-<h1>📘 SmartTest</h1>
-<p>School Student Mock Test Platform</p>
-</header>
+  <header>
+    <h1>Smart Mock Test</h1>
+    <p>NCERT | CBSE | Competitive Exams</p>
+  </header>
 
-<section class="hero">
-<h2>Test Your Knowledge!</h2>
-<p>Practice questions, improve your skills, and check your results.</p>
-</section>
+  <main>
+    <div class="card">
+      <h2>अपनी परीक्षा चुनें</h2>
 
-<main class="container">
+      <label for="classSelect">कक्षा:</label>
+      <select id="classSelect">
+        <option>Class 6</option>
+        <option>Class 7</option>
+        <option>Class 8</option>
+        <option>Class 9</option>
+        <option>Class 10</option>
+        <option>Class 11</option>
+        <option>Class 12</option>
+      </select>
 
-<section class="card" id="setup">
-<h2>Start Your Mock Test</h2>
-<form id="setupForm">
-<label for="name">Student Name</label>
-<input id="name" required placeholder="Enter your name">
+      <label for="subject">विषय:</label>
+      <select id="subject">
+        <option>Science</option>
+        <option>Mathematics</option>
+        <option>English</option>
+        <option>Social Science</option>
+      </select>
 
-<label for="className">Select Class</label>
-<select id="className" required>
-<option value="">Choose class</option>
-<option>6</option><option>7</option><option>8</option>
-<option>9</option><option>10</option><option>11</option><option>12</option>
-</select>
+      <button onclick="startTest()">टेस्ट शुरू करें</button>
 
-<label for="subject">Select Subject</label>
-<select id="subject" required>
-<option value="">Choose subject</option>
-<option value="Maths">Mathematics</option>
-<option value="Science">Science</option>
-<option value="English">English</option>
-<option value="GK">General Knowledge</option>
-</select>
+      <div id="quiz" hidden>
+        <p id="progress"></p>
+        <h3 id="question"></h3>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">अगला प्रश्न</button>
+      </div>
 
-<button class="primary" type="submit">Start Mock Test →</button>
-</form>
-</section>
+      <div id="result"></div>
+    </div>
+  </main>
 
-<section class="card hidden" id="testSection">
-<div class="top">
-<div>
-<h2 id="testTitle">Mock Test</h2>
-<p id="studentInfo"></p>
-</div>
-<p id="timer">Time: 05:00</p>
-</div>
+  <script>
+    Log in
+Sign up for free
+You said:
+how to make a new website send me code for making a website for mock test according to each class standard and syallabus ncert +cbse + competitive
 
-<p id="progress">Answered 0 questions</p>
-<form id="testForm">
-<div id="questions"></div>
-<button class="primary" type="submit">Submit Test</button>
-</form>
-</section>
+ChatGPT said:
+You can build a website for online mock tests for every class, based on NCERT, CBSE, and competitive exam syllabuses. The website can allow students to select their class, subject, chapter, difficulty level, and exam type, then take a timed test and see their score instantly.
 
-<section class="card hidden" id="resultSection">
-<h2>🎉 Your Result</h2>
-<p id="greeting"></p>
-<div id="score"></div>
-<p id="percentage"></p>
-<h2 style="margin-top:25px">Answer Review</h2>
-<div id="review"></div>
-<button class="primary" id="restart">Take Another Test ↻</button>
-</section>
+I'll give you working starter code that you can use to create your own website, even if you're a beginner.
 
-</main>
+1. What your mock test website should include
+Online Examination Dashboard Design by Sohail Karim on Dribbble
+Student dashboard
 
-<footer>
-<p>© 2026 SmartTest | Learn • Practice • Succeed</p>
-</footer>
+Students choose Class 1–12, subject, and chapter, or prepare for a competitive exam.
 
-<script>
-Maths: [
-{q:"What is 25 × 4?",o:["50","100","75","125"],a:1},
-{q:"What is the square of 9?",o:["18","72","81","99"],a:2},
-{q:"What is 144 ÷ 12?",o:["10","11","12","14"],a:2},
-{q:"How many sides does a hexagon have?",o:["5","6","7","8"],a:1},
-{q:"What is 15% of 200?",o:["15","20","25","30"],a:3}
-],
-Science: [
-{q:"
-  ",o:["Earth","Mars","Venus","Jupiter"],a:1},
-{q:"Which gas do plants absorb during photosynthesis?",o:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],a:2},
-{q:"What is the boiling point of water at sea level?",o:["50°C","75°C","100°C","150°C"],a:2},
-{q:"Which organ pumps blood?",o:["Lungs","Brain","Kidneys","Heart"],a:3},
-{q:"Which force pulls objects toward Earth?",o:["Friction","Gravity","Magnetism","Electricity"],a:1}
-],
-English: [
-{q:"What is the plural of child?",o:["Childs","Childes","Children","Childrens"],a:2},
-{q:"Which word is a noun?",o:["Quickly","Beautiful","Happiness","Run"],a:2},
-{q:"Choose the opposite of ancient.",o:["Old","Modern","Historic","Past"],a:1},
-{q:"She ___ to school every day.",o:["go","going","goes","gone"],a:2},
-{q:"Choose the correct spelling.",o:["Beautifull","Beutiful","Beautiful","Beautifal"],a:2}
-],
-GK: [
-{q:"What is the capital of India?",o:["Mumbai","New Delhi","Kolkata","Chennai"],a:1},
-{q:"How many days are there in a week?",o:["5","6","7","8"],a:2},
-{q:"Which is the largest planet?",o:["Earth","Mars","Jupiter","Venus"],a:2},
-{q:"What is the national animal of India?",o:["Lion","Tiger","Elephant","Leopard"],a:1},
-{q:"How many colours are in a rainbow traditionally?",o:["5","6","7","8"],a:2}
-]
+Quiz & Test Interface by Metehan Akıllıca on Dribbble
+Mock test engine
+
+Multiple-choice questions, timer, next/previous buttons, question navigation, and submit button.
+
+Online Learning - Prepare for K12, JEE & NEET with Online Courses | Extramarks
+Results and analysis
+
+Score, percentage, correct and incorrect answers, and explanations.
+
+What is SATHEE? Learn about Free JEE, NEET Coaching Platform
+Syllabus-based question bank
+
+NCERT chapter tests, CBSE practice papers, and competitive preparation for exams such as JEE, NEET, and CUET.
+
+2. Starter code for your website
+The easiest way to begin is with HTML, CSS, and JavaScript. This first version runs in a browser without installing anything or paying for hosting.
+
+It includes:
+
+Class and exam selection.
+
+Subject and chapter filters.
+
+Multiple-choice questions.
+
+A countdown timer.
+
+Automatic scoring and answer explanations.
+
+A responsive design for phones and computers.
+
+Step 1: Create your first website
+Open a text editor such as Notepad on your computer, or use an online editor such as 
+Replit .
+
+Create a file named index.html.
+
+Copy the complete code below into that file.
+
+Save it and open it in Chrome or another browser.
+
+
+<!DOCTYPE html>
+
+You said:
+send me the codes for making a website
+
+ChatGPT said:
+I'll give you a ready-to-use website for your Mock Test Platform with class-wise tests, NCERT + CBSE syllabus, and competitive exam practice. You can start with this code even if you're a beginner.
+
+The website will include:
+
+Classes 1–12 with class-wise subjects and tests.
+
+NCERT + CBSE study and practice sections.
+
+Competitive exams such as JEE, NEET, CUET, and other entrance exams.
+
+Mock tests with multiple-choice questions, a timer, automatic scoring, and results.
+
+A responsive design for mobile, tablet, and computer.
+
+Step 1: Create your website
+You only need a text editor and a web browser to get started.
+
+Create a folder named mock-test-website.
+
+Inside it, create a file named index.html.
+
+Copy all the code below into that file.
+
+Save it, then open index.html in Chrome or another browser.
+
+Step 2: Copy this complete website code
+This is a working starter website in one file. It has a homepage, class selection, subject selection, mock-test questions, a countdown timer, automatic marks, and a result screen.
+
+
+<!DOCTYPE html>
+
+You said:
+how to create a website
+
+ChatGPT said:
+I'll show you step by step how to create your own mock test website for Classes 1–12, NCERT, CBSE, and competitive exams.
+
+You don't need to know coding beforehand. Start with a simple website, then add more features as you learn.
+
+Step 1: Choose how you want to create the website
+Option 1 — Easiest: Use HTML, CSS, and JavaScript. Copy the code, save it, and open it in your browser.
+
+Option 2 — Professional: Use React for the website, Firebase or Supabase for storing questions and student accounts, and online hosting.
+
+Option 3 — No coding: Use a website builder such as WordPress.
+
+I recommend Option 1 to start.
+
+Step 2: Create your website files
+You need a folder named mock-test-website containing these three files:
+
+mock-test-website
+
+You said:
+in hindi
+
+ChatGPT said:
+वेबसाइट कैसे बनाएं? (शुरुआत से हिंदी में)
+आप अपनी ऑनलाइन Mock Test वेबसाइट बनाना चाहते हैं, जिसमें Class 1 से 12 तक के बच्चों के लिए NCERT, CBSE और JEE, NEET जैसी प्रतियोगी परीक्षाओं की तैयारी हो सके।
+
+स्टेप 1: वेबसाइट बनाने के लिए क्या चाहिए?
+HTML: वेबसाइट का ढांचा बनाने के लिए।
+
+CSS: वेबसाइट को सुंदर बनाने के लिए।
+
+JavaScript: टेस्ट, टाइमर और रिजल्ट चलाने के लिए।
+
+Hosting: वेबसाइट को इंटरनेट पर लाइव करने के लिए।
+
+स्टेप 2: अपना पहला वेबसाइट कोड बनाएं
+सबसे पहले कंप्यूटर या लैपटॉप में Notepad खोलें और नीचे दिया गया पूरा कोड कॉपी करें।
+
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Mock Test</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f5ff;
+      margin: 0;
+      color: #172554;
+    }
+
+    header {
+      background: #1746a2;
+      color: white;
+      padding: 24px 12px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px #0001;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccd5e5;
+      font-size: 16px;
+    }
+
+    button {
+      background: #1746a2;
+      color: white;
+      cursor: pointer;
+    }
+
+    .option {
+      background: #eaf0ff;
+      color: #172554;
+      text-align: left;
+    }
+
+    #result {
+      font-weight: bold;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Smart Mock Test</h1>
+    <p>NCERT | CBSE | Competitive Exams</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>अपनी परीक्षा चुनें</h2>
+
+      <label for="classSelect">कक्षा:</label>
+      <select id="classSelect">
+        <option>Class 6</option>
+        <option>Class 7</option>
+        <option>Class 8</option>
+        <option>Class 9</option>
+        <option>Class 10</option>
+        <option>Class 11</option>
+        <option>Class 12</option>
+      </select>
+
+      <label for="subject">विषय:</label>
+      <select id="subject">
+        <option>Science</option>
+        <option>Mathematics</option>
+        <option>English</option>
+        <option>Social Science</option>
+      </select>
+
+      <button onclick="startTest()">टेस्ट शुरू करें</button>
+
+      <div id="quiz" hidden>
+        <p id="progress"></p>
+        <h3 id="question"></h3>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">अगला प्रश्न</button>
+      </div>
+
+      <div id="result"></div>
+    </div>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        q: "पौधे अपना भोजन किस प्रक्रिया से बनाते हैं?",
+        options: ["श्वसन", "प्रकाश संश्लेषण", "पाचन", "वाष्पीकरण"],
+        answer: 1
+      },
+      {
+        q: "12 × 8 का मान कितना है?",
+        options: ["86", "92", "96", "108"],
+        answer: 2
+      },
+      {
+        q: "जल का रासायनिक सूत्र क्या है?",
+        options: ["CO2", "O2", "H2O", "NaCl"],
+        answer: 2
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let selected = null;
+
+    function startTest() {
+      current = 0;
+      score = 0;
+      selected = null;
+
+      document.getElementById("result").textContent = "";
+      document.getElementById("quiz").hidden = false;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[current];
+      selected = null;
+
+      document.getElementById("progress").textContent =
+        `प्रश्न ${current + 1} / ${questions.length}`;
+
+      document.getElementById("question").textContent = q.q;
+
+      const box = document.getElementById("options");
+      box.replaceChildren();
+
+      q.options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.className = "option";
+
+        btn.onclick = () => {
+          selected = index;
+
+          Array.from(box.children).forEach((b, i) => {
+            b.style.background = i === index ? "#b9d0ff" : "#eaf0ff";
+          });
+        };
+
+        box.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      if (selected === null) {
+        alert("कृपया एक उत्तर चुनें।");
+        return;
+      }
+
+      if (selected === questions[current].answer) {
+        score++;
+      }
+
+      current++;
+
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quiz").hidden = true;
+
+        document.getElementById("result").textContent =
+          `आपका परिणाम: ${score}/${questions.length} सही उत्तर। ` +
+          `प्रतिशत: ${Math.round(score / questions.length * 100)}%`;
+      }
+    }
+  </script>
+</body>
+</html>
+Copied
+स्टेप 3: वेबसाइट को कैसे चलाएं?
+अपने कंप्यूटर में Notepad खोलें।
+ऊपर दिया गया पूरा कोड कॉपी करके पेस्ट करें।
+File → Save As पर क्लिक करें।
+फाइल का नाम index.html रखें और Save as type में All Files चुनें।
+
+अब index.html फाइल पर डबल-क्लिक करें। आपकी वेबसाइट ब्राउज़र में खुल जाएगी।
+
+ध्यान दें: यह शुरुआती डेमो है। अभी इसमें नमूना प्रश्न हैं; कक्षा और विषय चुनने से प्रश्न अपने आप नहीं बदलते। असली वेबसाइट के लिए अलग-अलग कक्षाओं और अध्यायों के प्रश्न जोड़ने होंगे।
+
+स्टेप 4: वेबसाइट को इंटरनेट पर लाइव कैसे करें?
+आप अपनी वेबसाइट की फाइलें GitHub Pages या Netlify जैसी होस्टिंग सेवाओं पर अपलोड कर सकते हैं। इससे वेबसाइट का लिंक मिलेगा, जिसे विद्यार्थी अपने मोबाइल पर खोल सकेंगे। लॉगिन, प्रश्न बैंक मैनेजमेंट और विद्यार्थियों के रिकॉर्ड के लिए बाद में बैकएंड और डेटाबेस भी जोड़ना होगा।
+
+अब मुझे बताइए
+आप वेबसाइट किस डिवाइस से बनाना चाहते हैं?
+
+1. आप किस डिवाइस का इस्तेमाल करेंगे?
+
+
+मोबाइल फोन
+
+लैपटॉप या कंप्यूटर
+2. आपको कैसी वेबसाइट चाहिए?
+
+
+साधारण वेबसाइट — केवल ऑनलाइन टेस्ट
+
+पूरी वेबसाइट — छात्र लॉगिन, टेस्ट, टाइमर, रिजल्ट और एडमिन पैनल
+3. वेबसाइट का नाम क्या रखना चाहते हैं?
+
+Smart Mock Test
+
+You said:
+send me the javascript code questions for students mock test according to their standards  100 question at a time
+
+ChatGPT said:
+बिल्कुल! आपकी Mock Test वेबसाइट के लिए मैं JavaScript में प्रश्नों का ऐसा Question Bank दे सकता हूँ, जिसमें हर बार 100 प्रश्न हों और प्रश्न विद्यार्थी की कक्षा, विषय और सिलेबस के अनुसार चुने जाएँ।
+
+पहले यह कोड script.js में डालें। इसमें Class 6 के गणित के 100 प्रश्नों का सेट बनाने का ढाँचा और टेस्ट चलाने का JavaScript लॉजिक है। नीचे दिए गए प्रश्न नमूने हैं; इन्हें संबंधित NCERT अध्यायों से सत्यापित करके इस्तेमाल करें।
+
+1. script.js — 100 प्रश्नों वाला Mock Test
+यह कोड प्रश्न दिखाएगा, उत्तर जाँचेगा और अंत में स्कोर बताएगा।
+
+javascript
+
+const questionBank = {
+  "Class 6": {
+    Mathematics: [
+      {
+        question: "12 × 8 का मान क्या है?",
+        options: ["86", "96", "108", "92"],
+        answer: 1,
+        explanation: "12 × 8 = 96"
+      },
+      {
+        question: "1 किलोमीटर में कितने मीटर होते हैं?",
+        options: ["100", "500", "1000", "10000"],
+        answer: 2,
+        explanation: "1 किलोमीटर = 1000 मीटर"
+      },
+      {
+        question: "सबसे छोटी अभाज्य संख्या कौन-सी है?",
+        options: ["1", "2", "3", "0"],
+        answer: 1,
+        explanation: "2 सबसे छोटी अभाज्य संख्या है।"
+      },
+      {
+        question: "3/4 का दशमलव रूप क्या है?",
+        options: ["0.25", "0.5", "0.75", "1.25"],
+        answer: 2,
+        explanation: "3 ÷ 4 = 0.75"
+      },
+      {
+        question: "एक त्रिभुज की कितनी भुजाएँ होती हैं?",
+        options: ["2", "3", "4", "5"],
+        answer: 1,
+        explanation: "त्रिभुज की 3 भुजाएँ होती हैं।"
+      }
+    ]
+  }
 };
 
-let questions = [];
-let timer;
-let timeLeft = 300;
-let finished = false;
+    let current = 0;
+    let score = 0;
+    let selected = null;
 
-const $ = id => document.getElementById(id);
+    function startTest() {
+      current = 0;
+      score = 0;
+      selected = null;
 
-$("setupForm").addEventListener("submit", function(e) {
-e.preventDefault();
+      document.getElementById("result").textContent = "";
+      document.getElementById("quiz").hidden = false;
+      showQuestion();
+    }
 
-const subject = $("subject").value;
-const name = $("name").value.trim();
-const cls = $("className").value;
+    function showQuestion() {
+      const q = questions[current];
+      selected = null;
 
-if (!name || !cls || !subject) return;
+      document.getElementById("progress").textContent =
+        `प्रश्न ${current + 1} / ${questions.length}`;
 
-questions = bank[subject];
-timeLeft = 300;
-finished = false;
+      document.getElementById("question").textContent = q.q;
 
-$("setup").classList.add("hidden");
-$("resultSection").classList.add("hidden");
-$("testSection").classList.remove("hidden");
-$("testTitle").textContent = subject + " Mock Test";
-$("studentInfo").textContent = name + " | Class " + cls;
+      const box = document.getElementById("options");
+      box.replaceChildren();
 
-renderQuestions();
-updateProgress();
-updateTimer();
+      q.options.forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.className = "option";
 
-clearInterval(timer);
-timer = setInterval(() => {
-timeLeft--;
-updateTimer();
-if (timeLeft <= 0) submitTest();
-}, 1000);
+        btn.onclick = () => {
+          selected = index;
 
-window.scrollTo(0,0);
-});
+          Array.from(box.children).forEach((b, i) => {
+            b.style.background = i === index ? "#b9d0ff" : "#eaf0ff";
+          });
+        };
 
-function renderQuestions() {
-const container = $("questions");
-container.innerHTML = "";
+        box.appendChild(btn);
+      });
+    }
 
-questions.forEach((q,i) => {
-const div = document.createElement("div");
-div.className = "question";
+    function nextQuestion() {
+      if (selected === null) {
+        alert("कृपया एक उत्तर चुनें।");
+        return;
+      }
 
-const heading = document.createElement("h3");
-heading.textContent = (i+1) + ". " + q.q;
-div.appendChild(heading);
+      if (selected === questions[current].answer) {
+        score++;
+      }
 
-q.o.forEach((option,j) => {
-const label = document.createElement("label");
-label.className = "option";
+      current++;
 
-const radio = document.createElement("input");
-radio.type = "radio";
-radio.name = "q" + i;
-radio.value = j;
-radio.addEventListener("change",updateProgress);
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quiz").hidden = true;
 
-label.appendChild(radio);
-label.appendChild(document.createTextNode(option));
-div.appendChild(label);
-});
-
-container.appendChild(div);
-});
-}
-
-function updateProgress() {
-let answered = 0;
-questions.forEach((q,i) => {
-if (document.querySelector('input[name="q'+i+'"]:checked')) answered++;
-});
-$("progress").textContent = "Answered " + answered + " of " + questions.length + " questions";
-}
-
-function updateTimer() {
-const m = Math.floor(timeLeft/60);
-const s = timeLeft%60;
-$("timer").textContent = "Time: " +
-String(m).padStart(2,"0") + ":" +
-String(s).padStart(2,"0");
-}
-
-$("testForm").addEventListener("submit",e => {
-e.preventDefault();
-submitTest();
-});
-
-function submitTest() {
-if (finished) return;
-finished = true;
-clearInterval(timer);
-
-let score = 0;
-const review = $("review");
-review.innerHTML = "";
-
-questions.forEach((q,i) => {
-const selected = document.querySelector('input[name="q'+i+'"]:checked');
-const answer = selected ? Number(selected.value) : -1;
-const correct = answer === q.a;
-if (correct) score++;
-
-const div = document.createElement("div");
-div.className = "review";
-const title = document.createElement("h3");
-title.textContent = (i+1) + ". " + q.q;
-div.appendChild(title);
-
-const yours = document.createElement("p");
-yours.textContent = "Your answer: " + (answer === -1 ? "Not answered" : q.o[answer]);
-yours.style.color = correct ? "green" : "red";
-div.appendChild(yours);
-
-const right = document.createElement("p");
-right.textContent = "Correct answer: " + q.o[q.a];
-right.style.color = "green";
-div.appendChild(right);
-review.appendChild(div);
-});
-
-const percent = Math.round(score/questions.length*100);
-$("greeting").textContent = "Well done, " + $("name").value.trim() + "!";
-$("score").textContent = score + " / " + questions.length;
-$("percentage").textContent = "Your score: " + percent + "%";
-$("testSection").classList.add("hidden");
-$("resultSection").classList.remove("hidden");
-window.scrollTo(0,0);
-}
-
-$("restart").addEventListener("click",() => {
-clearInterval(timer);
-$("resultSection").classList.add("hidden");
-$("testSection").classList.add("hidden");
-$("setup").classList.remove("hidden");
-window.scrollTo(0,0);
-});
-
-</script>
+        document.getElementById("result").textContent =
+          `आपका परिणाम: ${score}/${questions.length} सही उत्तर। ` +
+          `प्रतिशत: ${Math.round(score / questions.length * 100)}%`;
+      }
+    }
+  </script>
 </body>
 </html>
